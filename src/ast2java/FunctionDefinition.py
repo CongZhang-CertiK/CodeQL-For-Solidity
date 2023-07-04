@@ -5,10 +5,11 @@ from src.logger import logger
 
 class FunctionDefinition(ClassElement):
 
-    def __init__(self, compilation_unit, class_type):
+    def __init__(self, compilation_unit, parent):
         super().__init__()
         self.cu = compilation_unit
-        self.class_type = class_type
+        self.parent = parent
+        self.class_type = parent.class_type
         self.eol = "\n\t"
         self.java_modifiers = ""
         self.name = self.cu.get('name')
@@ -48,7 +49,11 @@ class FunctionDefinition(ClassElement):
             self.annotations.append(f"@ViewModifier(\"{mutability}\")")
 
     def update_java_modifiers(self):
-        self.java_modifiers = "public void"
+        if self.name == "constructor":
+            self.name = self.parent.class_name
+            self.java_modifiers = ""
+        else:
+            self.java_modifiers = "public void "
 
     def update_body(self):
         if self.class_type == "class":
@@ -65,7 +70,7 @@ class FunctionDefinition(ClassElement):
             result += self.eol
             result += annotation
         result += self.eol
-        result += self.java_modifiers + " " + self.name
+        result += self.java_modifiers + self.name
         result += "("
         param_str = ""
         for param in self.parameters:

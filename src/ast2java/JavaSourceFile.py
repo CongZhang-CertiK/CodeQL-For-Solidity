@@ -37,13 +37,16 @@ class JavaSourceFile:
         for subnode in cu.get('subNodes'):
             node_type = subnode.get('type')
             if node_type == "FunctionDefinition":
-                self.class_elements.append(FunctionDefinition(subnode, self.class_type))
+                self.class_elements.append(FunctionDefinition(subnode, self))
             else:
                 pass
         self.update_imports()
 
     def update_imports(self):
-        self.import_block.append("import certik.congzhang.tool.codeql.solidity.builtins.*;")
+        self.import_block.append("import certik.congzhang.tool.codeql.solidity.builtins.modifiers.*;\n")
+        self.import_block.append("import certik.congzhang.tool.codeql.solidity.builtins.bytes.*;\n")
+        self.import_block.append("import certik.congzhang.tool.codeql.solidity.builtins.uint.*;\n")
+        self.import_block.append("import certik.congzhang.tool.codeql.solidity.builtins.Address;\n")
 
     def write_to_file(self):
         if not os.path.exists(CONFIG.dist):

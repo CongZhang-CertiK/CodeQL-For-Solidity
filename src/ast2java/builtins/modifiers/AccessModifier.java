@@ -1,4 +1,4 @@
-package certik.congzhang.tool.codeql.solidity.builtins;
+package certik.congzhang.tool.codeql.solidity.builtins.modifiers;
 
 import java.lang.annotation.*;
 

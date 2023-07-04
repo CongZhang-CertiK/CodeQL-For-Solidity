@@ -1,3 +1,5 @@
+from src.ast2java.typeMap import type_map
+
 class Parameter:
     def __init__(self, compilation_unit):
         self.cu = compilation_unit
@@ -10,6 +12,14 @@ class Parameter:
         result = ""
         if self.type_name is None:
             result += "NONE_TYPE"
+        elif self.type_name in type_map.bytes:
+            result += self.type_name.replace("bytes", "Bytes")
+        elif self.type_name in type_map.uint:
+            result += self.type_name.replace("uint", "UInt")
+        elif self.type_name == "address":
+            result += "Address"
+        elif self.type_name == "string":
+            result += "String"
         else:
             result += self.type_name
         result += " "
