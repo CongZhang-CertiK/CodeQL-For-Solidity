@@ -4,7 +4,7 @@ from src.config import CONFIG
 
 
 def gen_java_from_ast(source_unit):
-    move_builtins_to_dist()
+    copy_builtins_to_dist()
     current_source_file = None
     for cu in source_unit.get('children'):
         if cu.get('type') == "PragmaDirective" and current_source_file is None:
@@ -22,6 +22,10 @@ def gen_java_from_ast(source_unit):
             logger.debug("Compilation Unit Type: ", cu.get('type'))
 
 
-def move_builtins_to_dist():
+def copy_builtins_to_dist():
     import shutil
-    shutil.move(CONFIG.builtins, CONFIG.dist)
+    import os
+    builtin_dist = CONFIG.dist + "/builtins"
+    if os.path.exists(builtin_dist):
+        shutil.rmtree(builtin_dist)
+    shutil.copytree(CONFIG.builtins, builtin_dist)
