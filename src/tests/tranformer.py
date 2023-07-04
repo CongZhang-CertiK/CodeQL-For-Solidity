@@ -5,7 +5,7 @@ from src.logger import logger
 
 
 def test_sol2ast():
-    file_path = CONFIG.test_source
+    file_path = CONFIG.source
     source_unit = parse_file_to_ast(file_path)
     return source_unit
 

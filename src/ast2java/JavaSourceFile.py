@@ -22,10 +22,10 @@ class JavaSourceFile:
 
     def keywork_mapping(self, word):
         mapping = {
-            'contract': 'Class',
-            'interface': 'Interface',
-            'library': 'Class',
-            'abstract': 'Interface'
+            'contract': 'class',
+            'interface': 'interface',
+            'library': 'class',
+            'abstract': 'interface'
         }
         return mapping[word]
 
@@ -37,14 +37,18 @@ class JavaSourceFile:
         for subnode in cu.get('subNodes'):
             node_type = subnode.get('type')
             if node_type == "FunctionDefinition":
-                self.class_elements.append(FunctionDefinition(subnode))
+                self.class_elements.append(FunctionDefinition(subnode, self.class_type))
             else:
                 pass
+        self.update_imports()
+
+    def update_imports(self):
+        self.import_block.append("import certik.congzhang.tool.codeql.solidity.builtins.*;")
 
     def write_to_file(self):
-        if not os.path.exists(CONFIG.test_dist):
-            os.mkdir(CONFIG.test_dist)
-        file = open(os.path.join(CONFIG.test_dist, self.file_name), "w")
+        if not os.path.exists(CONFIG.dist):
+            os.mkdir(CONFIG.dist)
+        file = open(os.path.join(CONFIG.dist, self.file_name), "w")
         file.write(self.pragma_info)
         file.write(self.eol)
         file.write(self.package_info)

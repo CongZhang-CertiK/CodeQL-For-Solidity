@@ -5,16 +5,21 @@ from src.logger import logger
 
 class FunctionDefinition(ClassElement):
 
-    def __init__(self, compilation_unit):
+    def __init__(self, compilation_unit, class_type):
         super().__init__()
         self.cu = compilation_unit
+        self.class_type = class_type
         self.eol = "\n\t"
+        self.java_modifiers = ""
         self.name = self.cu.get('name')
         self.parameters: list[Parameter] = []
         self.return_parameters: list[Parameter] = []
         self.annotations: list[str] = []
+        self.body = ""
         self.update_parameters()
         self.update_annotations()
+        self.update_java_modifiers()
+        self.update_body()
 
     def update_parameters(self):
         parameter_list = self.cu.get('parameters')
@@ -37,23 +42,34 @@ class FunctionDefinition(ClassElement):
     def update_annotations(self):
         visibility = self.cu.get('visibility')
         if visibility is not None:
-            self.annotations.append(visibility)
+            self.annotations.append(f"@AccessModifier(\"{visibility}\")")
         mutability = self.cu.get('stateMutability')
         if mutability is not None:
-            self.annotations.append(mutability)
+            self.annotations.append(f"@ViewModifier(\"{mutability}\")")
+
+    def update_java_modifiers(self):
+        self.java_modifiers = "public void"
+
+    def update_body(self):
+        if self.class_type == "class":
+            self.body += "{" + self.eol
+            self.body += self.eol + "}"
+        elif self.class_type == "interface":
+            self.body = ";" + self.eol
+        else:
+            logger.debug("unresolved class type when updating function body")
 
     def get_content(self):
         result = self.eol
         for annotation in self.annotations:
             result += self.eol
-            result += "@" + annotation
+            result += annotation
         result += self.eol
-        result += self.name
+        result += self.java_modifiers + " " + self.name
         result += "("
         param_str = ""
         for param in self.parameters:
             param_str += param.get_content() + ", "
-        result += param_str[:-2] + ")" + "{" + self.eol
-
-        result += self.eol + "}"
+        result += param_str[:-2] + ")"
+        result += self.body
         return result
