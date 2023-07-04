@@ -1,12 +1,11 @@
 package certik.congzhang.tool.codeql.solidity.builtins.bytes;
 
 public class Bytes4 implements IBytes {
-    private int n;
-    private byte[] bytes;
+    private int n = 4;
+    private byte[] bytes = new byte[4];
 
     public Bytes4() {
-        this.n = 4;
-        this.bytes = new byte[4];
+
     }
 
     @Override
@@ -40,4 +39,3 @@ public class Bytes4 implements IBytes {
         System.arraycopy(bytesN, 0, bytes, 0, n);
     }
 }
-

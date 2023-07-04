@@ -1,10 +1,10 @@
 package certik.congzhang.tool.codeql.solidity.builtins.bytes;
 
-public class Bytes32 implements IBytes {
-    private int n = 32;
-    private byte[] bytes = new byte[32];
+public class Bytes27 implements IBytes {
+    private int n = 27;
+    private byte[] bytes = new byte[27];
 
-    public Bytes32() {
+    public Bytes27() {
 
     }
 
