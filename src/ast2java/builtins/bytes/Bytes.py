@@ -1,19 +1,37 @@
 import os
 
-# 定义Java文件的模板
-java_template = """package certik.congzhang.tool.codeql.solidity.builtins.bytes;
+template = '''
+package certik.congzhang.tool.codeql.solidity.builtins.bytes;
 
-public class Bytes{0} implements IBytes {{
-    private int n = {0};
-    private byte[] bytes = new byte[{0}];
+import java.math.BigInteger;
 
-    public Bytes{0}() {{
+public class Bytes{n} implements IBytes {{
+    private static final int SIZE = {n};
+    private byte[] bytes = new byte[SIZE];
 
+    public Bytes{n}() {{
+
+    }}
+
+    public Bytes{n}(int value) {{
+        for (int i = 0; i < SIZE; i++) {{
+            bytes[i] = (byte) ((value >> (8 * i)) & 0xFF);
+        }}
+    }}
+
+    public Bytes{n}(String value) {{
+        BigInteger bigInt = new BigInteger(value, 16);
+        byte[] temp = bigInt.toByteArray();
+        int len = temp.length;
+        if (len > SIZE) {{
+            throw new IllegalArgumentException("Input string is too long to fit into Bytes{n}");
+        }}
+        System.arraycopy(temp, 0, bytes, SIZE - len, len);
     }}
 
     @Override
     public int length() {{
-        return n;
+        return SIZE;
     }}
 
     @Override
@@ -28,7 +46,7 @@ public class Bytes{0} implements IBytes {{
 
     @Override
     public byte[] toBytesN(int n) {{
-        if (n != this.n) {{
+        if (n != SIZE) {{
             throw new IllegalArgumentException("Cannot convert to a different bytesN type");
         }}
         return bytes.clone();
@@ -36,19 +54,14 @@ public class Bytes{0} implements IBytes {{
 
     @Override
     public void fromBytesN(byte[] bytesN) {{
-        if (bytesN.length != n) {{
+        if (bytesN.length != SIZE) {{
             throw new IllegalArgumentException("Size of bytesN does not match N");
         }}
-        System.arraycopy(bytesN, 0, bytes, 0, n);
+        System.arraycopy(bytesN, 0, bytes, 0, SIZE);
     }}
 }}
-"""
+'''
 
-# 要生成文件的目录
-directory = './'  # 请替换为你的目录路径
-
-# 生成从1到32的BytesN.java文件
 for i in range(1, 33):
-    java_file_content = java_template.format(i)
-    with open(os.path.join(directory, f'Bytes{i}.java'), 'w') as f:
-        f.write(java_file_content)
+    with open(os.path.join('./', f'Bytes{i}.java'), 'w') as f:
+        f.write(template.format(n=i))

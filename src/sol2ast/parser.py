@@ -199,6 +199,11 @@ class AstVisitor(SolidityVisitor):
         else:
             visibility = 'default'
 
+        if ctx.modifierList().VirtualKeyword(0):
+            isVirtual = True
+        else:
+            isVirtual = False
+
         if ctx.modifierList().stateMutability(0):
             stateMutability = ctx.modifierList().stateMutability(0).getText()
         else:
@@ -215,6 +220,7 @@ class AstVisitor(SolidityVisitor):
                     isConstructor=isConstructor,
                     isFallback=isFallback,
                     isReceive=isReceive,
+                    isVirtual=isVirtual,
                     stateMutability=stateMutability)
 
     def visitReturnParameters(self, ctx: SolidityParser.ReturnParametersContext):

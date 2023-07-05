@@ -14,6 +14,14 @@ public class UInt160 implements UInt {
         }
         this.value = value;
     }
+    
+    public UInt160(int value) {
+        this(BigInteger.valueOf(value));
+    }
+
+    public UInt160(long value) {
+        this(BigInteger.valueOf(value));
+    }
 
     @Override
     public BigInteger value() {

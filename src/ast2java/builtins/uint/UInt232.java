@@ -14,6 +14,14 @@ public class UInt232 implements UInt {
         }
         this.value = value;
     }
+    
+    public UInt232(int value) {
+        this(BigInteger.valueOf(value));
+    }
+
+    public UInt232(long value) {
+        this(BigInteger.valueOf(value));
+    }
 
     @Override
     public BigInteger value() {

@@ -17,6 +17,14 @@ public class UInt{0} implements UInt {{
         }}
         this.value = value;
     }}
+    
+    public UInt{0}(int value) {{
+        this(BigInteger.valueOf(value));
+    }}
+
+    public UInt{0}(long value) {{
+        this(BigInteger.valueOf(value));
+    }}
 
     @Override
     public BigInteger value() {{

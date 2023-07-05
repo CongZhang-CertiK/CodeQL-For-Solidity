@@ -4,6 +4,5 @@ import java.lang.annotation.*;
 
 @Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ViewModifier {
-    String value() default "view";
+public @interface View {
 }

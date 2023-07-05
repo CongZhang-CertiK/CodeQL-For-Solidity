@@ -14,6 +14,14 @@ public class UInt96 implements UInt {
         }
         this.value = value;
     }
+    
+    public UInt96(int value) {
+        this(BigInteger.valueOf(value));
+    }
+
+    public UInt96(long value) {
+        this(BigInteger.valueOf(value));
+    }
 
     @Override
     public BigInteger value() {

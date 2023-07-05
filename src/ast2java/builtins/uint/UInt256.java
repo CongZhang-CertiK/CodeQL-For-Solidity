@@ -14,6 +14,14 @@ public class UInt256 implements UInt {
         }
         this.value = value;
     }
+    
+    public UInt256(int value) {
+        this(BigInteger.valueOf(value));
+    }
+
+    public UInt256(long value) {
+        this(BigInteger.valueOf(value));
+    }
 
     @Override
     public BigInteger value() {
