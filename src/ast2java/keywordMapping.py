@@ -1,5 +1,8 @@
 keyword_dict = {
     "address": "Address",
+    "calldata": "Calldata",
+    "memory": "Memory",
+    "storage": "Storage",
     "string": "String",
     "external": "External",
     "internal": "Internal",
@@ -7,6 +10,7 @@ keyword_dict = {
     "private": "Private",
     "view": "View",
     "pure": "Pure",
+    "bool": "boolean",
     "bytes": "Bytes",
     "bytes1": "Bytes1",
     "bytes2": "Bytes2",

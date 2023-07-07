@@ -17,6 +17,7 @@ class FunctionDefinition(ClassElement):
         self.parameters: list[Parameter] = []
         self.return_parameters: list[Parameter] = []
         self.annotations: list[str] = []
+        self.body_ast = self.ast.get('body')
         self.body = ""
         self.visibility = ""
         self.is_receive = self.ast.get('isReceive')
@@ -37,6 +38,7 @@ class FunctionDefinition(ClassElement):
             pass
         else:
             logger.debug("unresolved parameter list: ", type(parameter_list), parameter_list)
+
         return_parameter_list = self.ast.get('returnParameters')
         if type(return_parameter_list) != list and return_parameter_list.get('type') == 'ParameterList':
             for parameter in return_parameter_list.get('parameters'):
@@ -65,16 +67,19 @@ class FunctionDefinition(ClassElement):
             self.name = self.parent.class_name
             self.java_modifiers = ""
         else:
-            self.java_modifiers = f"{self.visibility} void "
+            if len(self.return_parameters) == 0:
+                self.java_modifiers = f"{self.visibility} void "
+            elif len(self.return_parameters) == 1:
+                self.java_modifiers = f"{self.visibility} {self.return_parameters[0].get_content()} "
+            else:
+                self.java_modifiers = f"{self.visibility} TODO "
 
     def update_body(self):
-        if self.class_type != "interface":
+        if len(self.body_ast) != 0:
             self.body += "{" + self.eol
             self.body += self.eol + "}"
-        elif self.class_type == "interface":
-            self.body = ";" + self.eol
         else:
-            logger.debug("unresolved class type when updating function body")
+            self.body = ";" + self.eol
 
     def get_content(self):
         result = self.eol

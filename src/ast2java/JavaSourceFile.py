@@ -59,6 +59,7 @@ class JavaSourceFile:
         self.import_block.append("import certik.congzhang.tool.codeql.solidity.builtins.modifiers.*;\n")
         self.import_block.append("import certik.congzhang.tool.codeql.solidity.builtins.bytes.*;\n")
         self.import_block.append("import certik.congzhang.tool.codeql.solidity.builtins.uint.*;\n")
+        self.import_block.append("import certik.congzhang.tool.codeql.solidity.builtins.storage.*;\n")
         self.import_block.append("import certik.congzhang.tool.codeql.solidity.builtins.Address;\n")
 
     def write_to_file(self):
@@ -73,7 +74,7 @@ class JavaSourceFile:
             file.write(import_stmt)
         file.write(self.eol)
         file.write(self.class_definition_start)
-        file.write(self.eol)
+        # file.write(self.eol)
         for class_element in self.class_elements:  # type: ClassElement
             file.write(class_element.get_content())
         file.write(self.class_definition_end)
