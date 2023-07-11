@@ -60,7 +60,7 @@ class FunctionDefinition(ClassElement):
         if mutability is not None:
             self.annotations.append(f"@{keyword_map(mutability)}")
         if self.ast.get('isVirtual'):
-            self.annotations.append(f"@Virtual")
+            self.annotations.append(f"@virtual")
 
     def update_java_modifiers(self):
         if self.name == "constructor":

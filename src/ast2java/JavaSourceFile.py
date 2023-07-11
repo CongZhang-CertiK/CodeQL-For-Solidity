@@ -60,7 +60,7 @@ class JavaSourceFile:
         self.import_block.append("import certik.congzhang.tool.codeql.solidity.builtins.bytes.*;\n")
         self.import_block.append("import certik.congzhang.tool.codeql.solidity.builtins.uint.*;\n")
         self.import_block.append("import certik.congzhang.tool.codeql.solidity.builtins.storage.*;\n")
-        self.import_block.append("import certik.congzhang.tool.codeql.solidity.builtins.Address;\n")
+        self.import_block.append("import certik.congzhang.tool.codeql.solidity.builtins.address;\n")
 
     def write_to_file(self):
         if not os.path.exists(CONFIG.dist):
