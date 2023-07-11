@@ -1,6 +1,6 @@
 package certik.congzhang.tool.codeql.solidity.builtins.bytes;
 
-public interface IBytes {
+public interface Ibytes {
     int length();
     byte get(int index);
     void set(int index, byte value);

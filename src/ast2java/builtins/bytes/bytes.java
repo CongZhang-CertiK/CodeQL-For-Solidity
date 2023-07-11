@@ -2,10 +2,10 @@ package certik.congzhang.tool.codeql.solidity.builtins.bytes;
 
 import java.util.ArrayList;
 
-public class Bytes implements IBytes {
+public class bytes implements Ibytes {
     private ArrayList<Byte> bytes;
 
-    public Bytes() {
+    public bytes() {
         this.bytes = new ArrayList<>();
     }
 
