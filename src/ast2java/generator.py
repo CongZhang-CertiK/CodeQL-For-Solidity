@@ -5,8 +5,8 @@ from src.config import CONFIG
 
 def gen_java_from_ast(source_unit):
     copy_builtins_to_dist()
-    compilation_units = scatter_to_compilation_units(source_unit)
-    for compilation_unit in compilation_units:
+    compilation_units_list = scatter_to_compilation_units(source_unit)
+    for compilation_unit in compilation_units_list:
         pragma_directive, contract_definition = compilation_unit
         current_source_file = JavaSourceFile()
         current_source_file.pragma_info = f"// pragma {pragma_directive.get('name')} {pragma_directive.get('value')};"
@@ -16,22 +16,35 @@ def gen_java_from_ast(source_unit):
 
 
 def scatter_to_compilation_units(source_unit):
-    compilation_units = []
+    compilation_units = {}
     pragma_directive = None
     for ast in source_unit.get('children'):
         if ast.get('type') == "PragmaDirective" and pragma_directive is None:
             pragma_directive = ast
         elif ast.get('type') == "ContractDefinition" and pragma_directive is not None:
-            compilation_units.append((pragma_directive, ast))
+            compilation_units[ast.get('name')] = (pragma_directive, ast)
             pragma_directive = None
         else:
             logger.debug("unknown source unit children type.")
     return reorg_compilation_tree(compilation_units)
 
 
-def reorg_compilation_tree(compilation_units):
-    reorged = compilation_units
-    return reorged
+def reorg_compilation_tree(compilation_units_dict):
+    reorged_list = []
+    reorged_units = []
+    while len(reorged_list) != len(compilation_units_dict.values()):
+        for compilation_unit in compilation_units_dict.values():
+            contract_definition = compilation_unit[1]
+            name = contract_definition.get('name')
+            if name in reorged_list:
+                continue
+            base_contracts = contract_definition.get('baseContracts')
+            for base_contract in base_contracts:
+                if base_contract.get('baseName').get('namePath') not in reorged_list:
+                    continue
+            reorged_list.append(name)
+            reorged_units.append(compilation_unit)
+    return reorged_units
 
 
 def copy_builtins_to_dist():

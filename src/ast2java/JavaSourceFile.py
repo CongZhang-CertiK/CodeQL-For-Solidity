@@ -79,3 +79,4 @@ class JavaSourceFile:
             file.write(class_element.get_content())
         file.write(self.class_definition_end)
         file.close()
+        logger.info(f"[GENERATED] {self.file_name}")
