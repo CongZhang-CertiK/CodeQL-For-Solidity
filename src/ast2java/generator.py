@@ -1,6 +1,7 @@
 from .JavaSourceFile import JavaSourceFile
 from src.logger import logger
 from src.config import CONFIG
+from .compilationGlobal import compilation_global
 
 
 def gen_java_from_ast(source_unit):
@@ -8,10 +9,11 @@ def gen_java_from_ast(source_unit):
     compilation_units_list = scatter_to_compilation_units(source_unit)
     for compilation_unit in compilation_units_list:
         pragma_directive, contract_definition = compilation_unit
-        current_source_file = JavaSourceFile()
+        current_source_file = JavaSourceFile(compilation_global)
         current_source_file.pragma_info = f"// pragma {pragma_directive.get('name')} {pragma_directive.get('value')};"
         current_source_file.ast = contract_definition
         current_source_file.update(contract_definition)
+        compilation_global[contract_definition.name] = current_source_file
         current_source_file.write_to_file()
 
 

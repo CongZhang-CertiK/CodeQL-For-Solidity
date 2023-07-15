@@ -8,7 +8,9 @@ class StateVariableDeclaration(ClassElement):
     def __init__(self, ast):
         super().__init__()
         self.ast = ast
+        self.type = "StateVariableDeclaration"
         self.declarations = []
+        self.inherit_from = None
         self.eol = "\n\t"
         self.update()
 
@@ -17,7 +19,9 @@ class StateVariableDeclaration(ClassElement):
             self.declarations.append(VariableDeclaration(variable_node))
 
     def get_content(self):
-        result = ""
+        result = self.eol
         for variable in self.declarations:
+            if self.inherit_from is not None:
+                result += self.eol + f"@inherit(\"{self.inherit_from}\")"
             result += self.eol + variable.get_content()
         return result

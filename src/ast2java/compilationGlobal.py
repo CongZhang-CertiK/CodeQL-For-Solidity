@@ -1,0 +1,2 @@
+
+compilation_global = {}

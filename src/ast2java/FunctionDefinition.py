@@ -9,6 +9,10 @@ class FunctionDefinition(ClassElement):
     def __init__(self, ast, parent):
         super().__init__()
         self.ast = ast
+        self.type = "FunctionDefinition"
+        self.inherit_from = None
+        self.override_from = None
+        self.implement = None
         self.parent = parent
         self.class_type = parent.class_type
         self.eol = "\n\t"
@@ -28,6 +32,15 @@ class FunctionDefinition(ClassElement):
         self.update_annotations()
         self.update_java_modifiers()
         self.update_body()
+
+    def get_signature(self):
+        result = self.name
+        result += "("
+        param_str = ""
+        for param in self.parameters:
+            param_str += param.get_content() + ", "
+        result += param_str[:-2] + ")"
+        return result
 
     def update_parameters(self):
         parameter_list = self.ast.get('parameters')
@@ -87,11 +100,12 @@ class FunctionDefinition(ClassElement):
             result += self.eol
             result += annotation
         result += self.eol
-        result += self.java_modifiers + self.name
-        result += "("
-        param_str = ""
-        for param in self.parameters:
-            param_str += param.get_content() + ", "
-        result += param_str[:-2] + ")"
+        if self.inherit_from is not None:
+            result += f"@inherit(\"{self.inherit_from}\")" + self.eol
+        if self.override_from is not None:
+            result += f"@override(\"{self.override_from}\")" + self.eol
+        if self.implement is not None:
+            result += f"@implement(\"{self.implement}\")" + self.eol
+        result += self.java_modifiers + self.get_signature()
         result += self.body
         return result
