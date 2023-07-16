@@ -1,5 +1,5 @@
 from src.logger import logger
-from src.ast2java.keywordMapping import keyword_map
+from src.ast2java.keywordMapping import keyword_map, resolve_type
 from .Expression import Expression
 
 
@@ -8,7 +8,7 @@ class VariableDeclaration:
         def __init__(self, ast_node):
             self.ast = ast_node
             self.node_type = self.ast.get('type')
-            self.name = keyword_map(self.ast.get('name'))
+            self.name = resolve_type(self.ast)
 
     def __init__(self, ast_node):
         self.ast = ast_node

@@ -1,4 +1,4 @@
-from src.ast2java.keywordMapping import keyword_map
+from src.ast2java.keywordMapping import keyword_map, resolve_type
 
 
 class Parameter:
@@ -6,12 +6,7 @@ class Parameter:
         self.ast = ast
         assert self.ast.get('type') == "Parameter"
         self.type_type = self.ast.get('typeName').get('type')
-        if self.type_type == "ElementaryTypeName":
-            self.type_name = self.ast.get('typeName').get('name')
-        elif self.type_type == "UserDefinedTypeName":
-            self.type_name = self.ast.get('typeName').get('namePath')
-        else:
-            self.type_name = None
+        self.type_name = resolve_type(self.ast.get('typeName'))
         self.name = self.ast.get('name')
         self.storage_location = self.ast.get('storageLocation')
         self.is_state_var = self.ast.get('isStateVar')
