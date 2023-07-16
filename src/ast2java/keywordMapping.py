@@ -97,6 +97,9 @@ def resolve_type(ast):
         key = resolve_type(ast.get('keyType'))
         value = resolve_type(ast.get('valueType'))
         return f"Map<{key}, {value}>"
+    elif node_type == "ArrayTypeName":
+        base_type = resolve_type(ast.get('baseTypeName'))
+        return f"{base_type}[]"
     else:
         logger.debug("unresolved type" + node_type)
         return "None"
