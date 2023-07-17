@@ -12,7 +12,7 @@ keyword_dict = {
     "private": "_private",
     # "view": "View",
     # "pure": "Pure",
-    "bool": "boolean",
+    "bool": "Boolean",
     # "bytes": "Bytes",
     # "bytes1": "Bytes1",
     # "bytes2": "Bytes2",
