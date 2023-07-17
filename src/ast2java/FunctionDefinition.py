@@ -50,7 +50,7 @@ class FunctionDefinition(ClassElement):
         elif type(parameter_list) == list and len(parameter_list) == 0:
             pass
         else:
-            logger.debug("unresolved parameter list: ", type(parameter_list), parameter_list)
+            logger.debug("unresolved parameter list: " + type(parameter_list) + parameter_list)
 
         return_parameter_list = self.ast.get('returnParameters')
         if type(return_parameter_list) != list and return_parameter_list.get('type') == 'ParameterList':
@@ -59,7 +59,7 @@ class FunctionDefinition(ClassElement):
         elif type(return_parameter_list) == list and len(return_parameter_list) == 0:
             pass
         else:
-            logger.debug("unresolved return parameter list: ", type(return_parameter_list), return_parameter_list)
+            logger.debug("unresolved return parameter list: " + type(return_parameter_list) + return_parameter_list)
 
     def update_annotations(self):
         visibility = self.ast.get('visibility')

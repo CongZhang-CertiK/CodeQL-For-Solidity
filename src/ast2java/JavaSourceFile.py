@@ -4,6 +4,7 @@ from .ClassElement import ClassElement
 from .FunctionDefinition import FunctionDefinition
 from .EnumDefinition import EnumDefinition
 from .StructDefinition import StructDefinition
+from .EventDefinition import EventDefinition
 from .StateVariableDeclaration import StateVariableDeclaration
 from src.config import CONFIG
 from src.logger import logger
@@ -87,7 +88,7 @@ class JavaSourceFile:
         elif node_type == "StructDefinition":
             self.class_elements.append(StructDefinition(subnode))
         elif node_type == "EventDefinition":
-            pass
+            self.class_elements.append(EventDefinition(subnode))
         elif node_type == "UsingForDeclaration":
             pass
         elif node_type == "ModifierDefinition":

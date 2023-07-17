@@ -4,7 +4,7 @@ from src.ast2java.keywordMapping import keyword_map, resolve_type
 class Parameter:
     def __init__(self, ast):
         self.ast = ast
-        assert self.ast.get('type') == "Parameter"
+        assert self.ast.get('type') == "Parameter" or self.ast.get('type') == 'VariableDeclaration'
         self.type_type = self.ast.get('typeName').get('type')
         self.type_name = resolve_type(self.ast.get('typeName'))
         self.name = self.ast.get('name')
