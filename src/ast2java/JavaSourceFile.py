@@ -102,6 +102,7 @@ class JavaSourceFile:
         self.import_block.append("import certik.congzhang.tool.codeql.solidity.builtins.storage.*;\n")
         self.import_block.append("import certik.congzhang.tool.codeql.solidity.builtins.address;\n")
         self.import_block.append("import certik.congzhang.tool.codeql.solidity.builtins.inherit.*;\n")
+        self.import_block.append("import certik.congzhang.tool.codeql.solidity.builtins.hint.*;\n")
         self.import_block.append("\n")
         self.import_block.append("import java.util.Map;\n")
         self.import_block.append("import java.util.ArrayList;\n")
