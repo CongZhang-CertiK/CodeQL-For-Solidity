@@ -60,14 +60,12 @@ class JavaSourceFile:
                 if len(class_element.body_ast) == 0:
                     self.implements[class_element.get_signature()] = name
                     continue
-                class_element.inherit_from = name
                 if class_element.is_constructor:
                     class_element.java_modifiers += "private void "
-                index = self.has_same_element(class_element)
-                if index is None:
-                    self.class_elements.append(class_element)
-            elif element_type == "StateVariableDeclaration":
-                class_element.inherit_from = name
+            class_element.inherit_from = name
+            class_element.parent = self
+            index = self.has_same_element(class_element)
+            if index is None:
                 self.class_elements.append(class_element)
 
     def has_same_element(self, element):
@@ -96,11 +94,17 @@ class JavaSourceFile:
             self.element_override(state_var_decl)
             self.class_elements.append(state_var_decl)
         elif node_type == "EnumDefinition":
-            self.class_elements.append(EnumDefinition(subnode))
+            enum_def = EnumDefinition(subnode)
+            self.element_override(enum_def)
+            self.class_elements.append(enum_def)
         elif node_type == "StructDefinition":
-            self.class_elements.append(StructDefinition(subnode))
+            struct_def = StructDefinition(subnode)
+            self.element_override(struct_def)
+            self.class_elements.append(struct_def)
         elif node_type == "EventDefinition":
-            self.class_elements.append(EventDefinition(subnode))
+            event_def = EventDefinition(subnode, self)
+            self.element_override(event_def)
+            self.class_elements.append(event_def)
         elif node_type == "UsingForDeclaration":
             pass
         elif node_type == "ModifierDefinition":

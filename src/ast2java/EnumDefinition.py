@@ -11,6 +11,9 @@ class EnumDefinition(ClassElement):
         self.members: list[str] = []
         self.update_members()
 
+    def get_signature(self):
+        return str(self.members)
+
     def update_members(self):
         for member in self.ast.get('members'):
             if member.get('type') == 'EnumValue':
@@ -19,7 +22,8 @@ class EnumDefinition(ClassElement):
                 logger.debug("unresolved EnumMember: " + member)
 
     def get_content(self):
-        result = f"{self.eol}enum {self.name} {{"
+        result = super().get_content()
+        result += f"{self.eol}enum {self.name} {{"
         for member in self.members:
             result += f"{self.eol}\t{member},"
         result = result[:-1] + self.eol + "}"

@@ -2,6 +2,7 @@ class ClassElement:
     def __init__(self):
         self.inherit_from = None
         self.override_from = None
+        self.parent = None
         self.eol = "\n\t"
         self.name = ""
         self.type = ""

@@ -12,6 +12,9 @@ class StructDefinition(ClassElement):
         self.sub_variable_declarations = []
         self.update_members()
 
+    def get_signature(self):
+        return str(self.sub_variable_declarations)
+
     def update_members(self):
         for member in self.ast.get('members'):
             if member.get('type') == "VariableDeclaration":
@@ -20,7 +23,8 @@ class StructDefinition(ClassElement):
                 logger.debug("unresolved StructDefinition member: " + member)
 
     def get_content(self):
-        result = f"\n{self.eol}@struct"
+        result = super().get_content()
+        result += f"{self.eol}@struct"
         result += f"{self.eol}public class {self.name} {{"
         for member in self.sub_variable_declarations:
             member.visibility = "public"
