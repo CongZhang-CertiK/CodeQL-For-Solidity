@@ -1,13 +1,18 @@
 class ClassElement:
     def __init__(self):
-        self.inherited_from = None
-        self.class_name = ""
+        self.inherit_from = None
+        self.override_from = None
+        self.eol = "\n\t"
+        self.name = ""
         self.type = ""
-        self.indent = ""
-        self.content_lines: list[str] = []
 
     def get_content(self):
-        return self.class_name
+        result = ""
+        if self.inherit_from is not None:
+            result += f"{self.eol}@inherit(\"{self.inherit_from}\")"
+        if self.override_from is not None:
+            result += f"{self.eol}@override(\"{self.override_from}\")"
+        return result
 
     def get_signature(self):
         return ""

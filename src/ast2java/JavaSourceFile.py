@@ -63,26 +63,38 @@ class JavaSourceFile:
                 class_element.inherit_from = name
                 if class_element.is_constructor:
                     class_element.java_modifiers += "private void "
-                self.class_elements.append(class_element)
+                index = self.has_same_element(class_element)
+                if index is None:
+                    self.class_elements.append(class_element)
             elif element_type == "StateVariableDeclaration":
                 class_element.inherit_from = name
                 self.class_elements.append(class_element)
+
+    def has_same_element(self, element):
+        element_sig = element.get_signature()
+        for index in range(0, len(self.class_elements)):
+            if self.class_elements[index].get_signature() == element_sig:
+                return index
+        return None
+
+    def element_override(self, element):
+        element_sig = element.get_signature()
+        index = self.has_same_element(element)
+        if index is not None:
+            self.class_elements.pop(index)
+        if element_sig in self.implements.keys():
+            element.implement = self.implements[element_sig]
 
     def update_subnode(self, subnode):
         node_type = subnode.get('type')
         if node_type == "FunctionDefinition":
             function_def = FunctionDefinition(subnode, self)
-            function_sig = function_def.get_signature()
-            for index in range(0, len(self.class_elements)):
-                if self.class_elements[index].get_signature() == function_sig:
-                    function_def.override_from = self.class_elements[index].inherited_from
-                    self.class_elements.pop(index)
-                    break
-            if function_sig in self.implements.keys():
-                function_def.implement = self.implements[function_sig]
+            self.element_override(function_def)
             self.class_elements.append(function_def)
         elif node_type == "StateVariableDeclaration":
-            self.class_elements.append(StateVariableDeclaration(subnode))
+            state_var_decl = StateVariableDeclaration(subnode)
+            self.element_override(state_var_decl)
+            self.class_elements.append(state_var_decl)
         elif node_type == "EnumDefinition":
             self.class_elements.append(EnumDefinition(subnode))
         elif node_type == "StructDefinition":
@@ -122,6 +134,7 @@ class JavaSourceFile:
         file.write(self.class_definition_start)
         # file.write(self.eol)
         for class_element in self.class_elements:  # type: ClassElement
+            file.write(self.eol)
             file.write(class_element.get_content())
         file.write(self.class_definition_end)
         file.close()

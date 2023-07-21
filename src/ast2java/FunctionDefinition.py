@@ -10,8 +10,6 @@ class FunctionDefinition(ClassElement):
         super().__init__()
         self.ast = ast
         self.type = "FunctionDefinition"
-        self.inherit_from = None
-        self.override_from = None
         self.implement = None
         self.parent = parent
         self.class_type = parent.class_type
@@ -92,20 +90,16 @@ class FunctionDefinition(ClassElement):
             self.body += "{" + self.eol
             self.body += self.eol + "}"
         else:
-            self.body = ";" + self.eol
+            self.body = ";"
 
     def get_content(self):
-        result = self.eol
+        result = ""
         for annotation in self.annotations:
             result += self.eol
             result += annotation
-        result += self.eol
-        if self.inherit_from is not None:
-            result += f"@inherit(\"{self.inherit_from}\")" + self.eol
-        if self.override_from is not None:
-            result += f"@override(\"{self.override_from}\")" + self.eol
         if self.implement is not None:
-            result += f"@implement(\"{self.implement}\")" + self.eol
-        result += self.java_modifiers + self.get_signature()
+            result += f"{self.eol}@implement(\"{self.implement}\")"
+        result += super().get_content()
+        result += self.eol + self.java_modifiers + self.get_signature()
         result += self.body
         return result
