@@ -81,7 +81,7 @@ class FunctionDefinition(ClassElement):
             if len(self.return_parameters) == 0:
                 self.java_modifiers = f"{self.visibility} void "
             elif len(self.return_parameters) == 1:
-                self.java_modifiers = f"{self.visibility} {self.return_parameters[0].get_content()} "
+                self.java_modifiers = f"{self.visibility} {self.return_parameters[0].type_name} "
             else:
                 self.java_modifiers = f"{self.visibility} TODO "
 
