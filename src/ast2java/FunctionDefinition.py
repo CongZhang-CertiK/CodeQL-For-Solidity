@@ -1,5 +1,6 @@
 from .ClassElement import ClassElement
 from .Parameter import Parameter
+from .Block import Block
 from src.logger import logger
 from src.ast2java.keywordMapping import keyword_map
 
@@ -86,11 +87,11 @@ class FunctionDefinition(ClassElement):
                 self.java_modifiers = f"{self.visibility} TODO "
 
     def update_body(self):
-        if len(self.body_ast) != 0:
-            self.body += "{" + self.eol
-            self.body += self.eol + "}"
-        else:
+        if len(self.body_ast) == 0:
             self.body = ";"
+            return
+        if self.body_ast.get('type') == 'Block':
+            self.body += Block(self.body_ast, self.eol).get_content()
 
     def get_content(self):
         result = ""
