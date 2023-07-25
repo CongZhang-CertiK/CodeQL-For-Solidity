@@ -15,7 +15,7 @@ class Block:
                     'stringLiteral',
                     'NumberLiteral',
                     'BinaryOperation',
-                    'UnaryOperation'
+                    'UnaryOperation',
                     'Identifier',
                     'MemberAccess',
                     'TupleExpression',
