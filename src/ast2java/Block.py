@@ -10,10 +10,17 @@ class Block:
             if statement.get('type') == "IfStatement":
                 from .IfStatement import IfStatement
                 stmt = IfStatement(statement, self.eol+"\t")
+            elif statement.get('type') == "VariableDeclarationStatement":
+                from .VariableDeclarationStatement import VariableDeclarationStatement
+                stmt = VariableDeclarationStatement(statement, self.eol+"\t")
+            elif statement.get('type') == "ExpressionStatement":
+                from .ExpressionStatement import ExpressionStatement
+                stmt = ExpressionStatement(statement, self.eol+"\t")
             else:
                 if statement.get('type') in [
                     'stringLiteral',
                     'NumberLiteral',
+                    'BooleanLiteral',
                     'BinaryOperation',
                     'UnaryOperation',
                     'Identifier',

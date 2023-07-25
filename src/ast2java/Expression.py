@@ -12,6 +12,8 @@ class Expression:
             return '"' + self.ast.get('value') + '"'
         elif self.node_type == 'NumberLiteral':
             return self.ast.get('number')
+        elif self.node_type == 'BooleanLiteral':
+            return keyword_map(str(self.ast.get('value')))
         elif self.node_type == 'BinaryOperation':
             from .BinaryOperation import BinaryOperation
             return BinaryOperation(self.ast).get_content()

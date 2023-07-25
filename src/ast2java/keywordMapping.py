@@ -13,6 +13,8 @@ keyword_dict = {
     # "view": "View",
     # "pure": "Pure",
     "bool": "Boolean",
+    "True": "true",
+    "False": "false",
     # "bytes": "Bytes",
     # "bytes1": "Bytes1",
     # "bytes2": "Bytes2",
