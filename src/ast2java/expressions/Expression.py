@@ -31,6 +31,9 @@ class Expression:
         elif self.node_type == 'IndexAccess':
             from .IndexAccess import IndexAccess
             return IndexAccess(self.ast).get_content()
+        elif self.node_type == 'Conditional':
+            from .Conditional import Conditional
+            return Conditional(self.ast).get_content()
         elif self.node_type == 'FunctionCall':
             from .FunctionCall import FunctionCall
             return FunctionCall(self.ast).get_content()
