@@ -34,6 +34,9 @@ class Expression:
         elif self.node_type == 'Conditional':
             from .Conditional import Conditional
             return Conditional(self.ast).get_content()
+        elif self.node_type == 'NewExpression':
+            from .NewExpression import NewExpression
+            return NewExpression(self.ast).get_content()
         elif self.node_type == 'FunctionCall':
             from .FunctionCall import FunctionCall
             return FunctionCall(self.ast).get_content()
