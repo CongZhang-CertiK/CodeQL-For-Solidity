@@ -16,25 +16,25 @@ class Block:
     def update_by_statement(self, statement, result):
         stmt = None
         if statement.get('type') == "IfStatement":
-            from .IfStatement import IfStatement
+            from src.ast2java.statements.IfStatement import IfStatement
             stmt = IfStatement(statement, self.eol + "\t")
         elif statement.get('type') == "WhileStatement":
-            from .WhileStatement import WhileStatement
+            from src.ast2java.statements.WhileStatement import WhileStatement
             stmt = WhileStatement(statement, self.eol + "\t")
         elif statement.get('type') == "UncheckedStatement":
-            from .UncheckedStatement import UncheckedStatement
+            from src.ast2java.statements.UncheckedStatement import UncheckedStatement
             stmt = UncheckedStatement(statement, self.eol + "\t")
         elif statement.get('type') == "VariableDeclarationStatement":
-            from .VariableDeclarationStatement import VariableDeclarationStatement
+            from src.ast2java.statements.VariableDeclarationStatement import VariableDeclarationStatement
             stmt = VariableDeclarationStatement(statement, self.eol + "\t")
         elif statement.get('type') == "ExpressionStatement":
-            from .ExpressionStatement import ExpressionStatement
+            from src.ast2java.statements.ExpressionStatement import ExpressionStatement
             stmt = ExpressionStatement(statement, self.eol + "\t")
         elif statement.get('type') == "EmitStatement":
-            from .EmitStatement import EmitStatement
+            from src.ast2java.statements.EmitStatement import EmitStatement
             stmt = EmitStatement(statement, self.eol + "\t")
         elif statement.get('type') == "ReturnStatement":
-            from .ReturnStatement import ReturnStatement
+            from src.ast2java.statements.ReturnStatement import ReturnStatement
             stmt = ReturnStatement(statement, self.eol + "\t")
         elif statement.get('type') == "BreakStatement":
             result += "\tbreak;"

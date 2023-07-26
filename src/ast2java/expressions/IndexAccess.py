@@ -1,4 +1,4 @@
-from .Expression import Expression
+from src.ast2java.expressions.Expression import Expression
 
 
 class IndexAccess:

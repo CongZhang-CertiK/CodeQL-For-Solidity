@@ -1,6 +1,6 @@
-from .ClassElement import ClassElement
-from .Parameter import Parameter
-from .Block import Block
+from src.ast2java.definitions.ClassElement import ClassElement
+from src.ast2java.definitions.Parameter import Parameter
+from src.ast2java.statements.Block import Block
 from src.logger import logger
 from src.ast2java.keywordMapping import keyword_map
 

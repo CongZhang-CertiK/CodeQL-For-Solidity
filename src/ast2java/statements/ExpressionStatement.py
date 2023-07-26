@@ -1,6 +1,5 @@
-from .VariableDeclaration import VariableDeclaration
-from .Statement import Statement
-from .Expression import Expression
+from src.ast2java.statements.Statement import Statement
+from src.ast2java.expressions.Expression import Expression
 
 
 class ExpressionStatement(Statement):

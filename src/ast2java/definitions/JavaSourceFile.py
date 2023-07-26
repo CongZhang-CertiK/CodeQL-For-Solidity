@@ -1,11 +1,11 @@
 import os.path
 
-from .ClassElement import ClassElement
+from src.ast2java.definitions.ClassElement import ClassElement
 from .FunctionDefinition import FunctionDefinition
 from .EnumDefinition import EnumDefinition
 from .StructDefinition import StructDefinition
 from .EventDefinition import EventDefinition
-from .StateVariableDeclaration import StateVariableDeclaration
+from src.ast2java.expressions.StateVariableDeclaration import StateVariableDeclaration
 from src.config import CONFIG
 from src.logger import logger
 from src.ast2java.utils import list_to_str

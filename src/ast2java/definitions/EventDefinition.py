@@ -1,7 +1,5 @@
-from .ClassElement import ClassElement
-from .VariableDeclaration import VariableDeclaration
-from .Parameter import Parameter
-from src.logger import logger
+from src.ast2java.definitions.ClassElement import ClassElement
+from src.ast2java.definitions.Parameter import Parameter
 
 
 class EventDefinition(ClassElement):

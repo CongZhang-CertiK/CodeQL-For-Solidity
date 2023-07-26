@@ -1,4 +1,4 @@
-from .JavaSourceFile import JavaSourceFile
+from src.ast2java.definitions.JavaSourceFile import JavaSourceFile
 from src.logger import logger
 from src.config import CONFIG
 from .compilationGlobal import compilation_global

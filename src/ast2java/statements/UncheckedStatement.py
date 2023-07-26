@@ -1,6 +1,5 @@
-from .Statement import Statement
-from .Block import Block
-from .Expression import Expression
+from src.ast2java.statements.Statement import Statement
+from src.ast2java.statements.Block import Block
 
 
 class UncheckedStatement(Statement):

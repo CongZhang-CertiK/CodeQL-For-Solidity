@@ -1,7 +1,5 @@
-from .ClassElement import ClassElement
+from src.ast2java.definitions.ClassElement import ClassElement
 from .VariableDeclaration import VariableDeclaration
-from .Expression import Expression
-from src.logger import logger
 
 
 class StateVariableDeclaration(ClassElement):

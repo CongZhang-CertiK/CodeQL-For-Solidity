@@ -1,6 +1,6 @@
 from src.logger import logger
-from src.ast2java.keywordMapping import keyword_map, resolve_type
-from .Expression import Expression
+from src.ast2java.keywordMapping import resolve_type
+from src.ast2java.expressions.Expression import Expression
 
 
 class VariableDeclaration:

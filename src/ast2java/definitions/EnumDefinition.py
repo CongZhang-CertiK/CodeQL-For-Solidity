@@ -1,4 +1,4 @@
-from .ClassElement import ClassElement
+from src.ast2java.definitions.ClassElement import ClassElement
 from src.logger import logger
 
 
