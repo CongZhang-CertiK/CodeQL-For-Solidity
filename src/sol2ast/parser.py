@@ -1022,7 +1022,17 @@ class AstVisitor(SolidityVisitor):
                     name=ctx.getText())
 
     def visitReturnStatement(self, ctx):
-        return self.visit(ctx.expression())
+        return Node(
+            ctx=ctx,
+            type="ReturnStatement",
+            expression=self.visit(ctx.expression())
+        )
+
+    def visitBreakStatement(self, ctx):
+        return Node(
+            ctx=ctx,
+            type="BreakStatement"
+        )
 
     def visitTerminal(self, ctx):
         return ctx.getText()
