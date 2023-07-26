@@ -1,6 +1,8 @@
 from src.logger import logger
 
 keyword_dict = {
+    "revert": "sol.revert",
+    "require": "sol.require",
     # "address": "Address",
     # "calldata": "Calldata",
     # "memory": "Memory",

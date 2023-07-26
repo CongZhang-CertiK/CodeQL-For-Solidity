@@ -1,4 +1,5 @@
 from src.ast2java.expressions.Expression import Expression
+from src.ast2java.keywordMapping import keyword_map
 
 
 class FunctionCall:
@@ -13,7 +14,7 @@ class FunctionCall:
             self.arguments.append(Expression(argument))
 
     def get_content(self):
-        result = f"{self.expression}("
+        result = f"{keyword_map(self.expression)}("
         for argument in self.arguments:
             result += argument.get_content()
             if argument != self.arguments[-1]:
