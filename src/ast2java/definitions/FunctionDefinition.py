@@ -91,7 +91,12 @@ class FunctionDefinition(ClassElement):
             self.body = ";"
             return
         if self.body_ast.get('type') == 'Block':
-            self.body += Block(self.body_ast, self.eol).get_content()
+            return_param_decl = ""
+            for param in self.return_parameters:
+                if param.name is None:
+                    continue
+                return_param_decl += f"{self.eol}\t{param.type_name} {param.name} = null;"
+            self.body += Block(self.body_ast, self.eol, return_param_decl).get_content()
 
     def get_content(self):
         result = ""

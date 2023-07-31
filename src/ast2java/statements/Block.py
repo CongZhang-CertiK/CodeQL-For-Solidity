@@ -2,13 +2,15 @@ from src.logger import logger
 
 
 class Block:
-    def __init__(self, _ast, eol):
+    def __init__(self, _ast, eol, rpd=""):
         self.ast = _ast
         self.eol = eol
+        self.rpd = rpd
 
     def get_content(self):
         if self.ast.get('type') == "Block":
             result = "{"
+            result += self.rpd
             for statement in self.ast.get('statements'):
                 result = self.update_by_statement(statement, result)
             result += self.eol + "}"
