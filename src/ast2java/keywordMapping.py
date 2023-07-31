@@ -39,6 +39,9 @@ keyword_dict = {
     "&": "_and",
     "|": "_or",
     "^": "_xor",
+    "~": "_not",
+    "++": "_increment",
+    "--": "_decrement",
     "&=": "_andAssign",
     "|=": "_orAssign",
     "^=": "_xorAssign"

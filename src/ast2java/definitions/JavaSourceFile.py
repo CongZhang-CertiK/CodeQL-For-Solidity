@@ -132,6 +132,7 @@ class JavaSourceFile:
             os.mkdir(CONFIG.dist)
         file = open(os.path.join(CONFIG.dist, self.file_name), "w")
         file.write(self.pragma_info)
+        file.write("\n// Generated using [CodeQL-For-Solidity] by CertiK.com")
         file.write(self.eol)
         file.write(self.package_info)
         file.write(self.eol)

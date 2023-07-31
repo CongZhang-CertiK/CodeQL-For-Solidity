@@ -29,6 +29,12 @@ public class EVM {
 
     public static <T> T _xor(T o1, T o2){ return o1;}
 
+    public static <T> T _not(T o1){ return o1; }
+
+    public static <T> T _increment(T o1){ return o1; }
+
+    public static <T> T _decrement(T o1){ return o1; }
+
     public static <T> T _rightShift(T o1, T o2){ return o1;}
 
     public static <T> T _leftShift(T o1, T o2){ return o1;}
@@ -66,5 +72,9 @@ public class EVM {
     public static void _rightShiftAssign(Object o1, Object o2){}
 
     public static void _leftShiftAssign(Object o1, Object o2){}
+
+    public static uint addmod(uint x, uint y, uint k){ return x; }
+
+    public static uint mulmod(uint x, uint y, uint k){ return x; }
 
 }

@@ -12,6 +12,6 @@ class BinaryOperation:
     def get_content(self):
         evm_op = keyword_map(self.operator)
         if evm_op != self.operator:
-            return f"{keyword_map(self.operator)}({self.left.get_content()}, {self.right.get_content()})"
+            return f"{evm_op}({self.left.get_content()}, {self.right.get_content()})"
         else:
             return f"{self.left.get_content()} {self.operator} {self.right.get_content()}"
