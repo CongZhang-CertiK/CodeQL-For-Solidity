@@ -8,11 +8,8 @@ public class uint32 implements uint {
 
     private static final BigInteger MAX_VALUE = BigInteger.valueOf(2).pow(32).subtract(BigInteger.ONE);
 
-    public uint32(BigInteger value) {
-        if (value.signum() < 0 || value.compareTo(MAX_VALUE) > 0) {
-            throw new IllegalArgumentException("Value is out of range for uint32");
-        }
-        this.value = value;
+    public uint32(Object o) {
+        this.value = new BigInteger(String.valueOf(o));
     }
     
     public uint32(int value) {
@@ -26,110 +23,5 @@ public class uint32 implements uint {
     @Override
     public BigInteger value() {
         return value;
-    }
-
-    @Override
-    public uint _add(uint other) {
-        return new uint32(this.value().add(other.value()));
-    }
-
-    @Override
-    public uint _sub(uint other) {
-        return new uint32(this.value().subtract(other.value()));
-    }
-
-    @Override
-    public uint _mul(uint other) {
-        return new uint32(this.value().multiply(other.value()));
-    }
-
-    @Override
-    public uint _div(uint other) {
-        return new uint32(this.value().divide(other.value()));
-    }
-
-    @Override
-    public uint _mod(uint other) {
-        return new uint32(this.value().mod(other.value()));
-    }
-
-    @Override
-    public uint _pow(uint exponent) {
-        return new uint32(this.value().pow(exponent.value().intValue()));
-    }
-    
-    @Override
-    public Boolean _equal(uint other) {
-        return Boolean.False;
-    }
-
-    @Override
-    public uint _notEqual(uint other) {
-        return Boolean.False;
-    }
-
-    @Override
-    public Boolean _greaterEqual(uint other) {
-        return Boolean.False;
-    }
-
-    @Override
-    public uint _greaterThan(uint other) {
-        return Boolean.False;
-    }
-
-    @Override
-    public Boolean _lessEqual(uint other) {
-        return Boolean.False;
-    }
-
-    @Override
-    public uint _lessThan(uint other) {
-        return Boolean.False;
-    }
-    
-    @Override
-    public void _assign(uint other) {
-        this.value = other.value;
-    }
-
-    @Override
-    public void _addAssign(uint other) {
-        this.value += other.value;
-    }
-
-    @Override
-    public void _subAssign(uint other) {
-        this.value -= other.value;
-    }
-
-    @Override
-    public uint and(uint other) {
-        return new uint32(this.value().and(other.value()));
-    }
-
-    @Override
-    public uint or(uint other) {
-        return new uint32(this.value().or(other.value()));
-    }
-
-    @Override
-    public uint xor(uint other) {
-        return new uint32(this.value().xor(other.value()));
-    }
-
-    @Override
-    public uint not() {
-        return new uint32(this.value().not());
-    }
-
-    @Override
-    public uint shiftLeft(int n) {
-        return new uint32(this.value().shiftLeft(n));
-    }
-
-    @Override
-    public uint shiftRight(int n) {
-        return new uint32(this.value().shiftRight(n));
     }
 }

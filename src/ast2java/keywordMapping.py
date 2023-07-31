@@ -35,7 +35,13 @@ keyword_dict = {
     ">>": "_rightShift",
     "<<": "_leftShift",
     ">>=": "_rightShiftAssign",
-    "<<=": "_leftShiftAssign"
+    "<<=": "_leftShiftAssign",
+    "&": "_and",
+    "|": "_or",
+    "^": "_xor",
+    "&=": "_andAssign",
+    "|=": "_orAssign",
+    "^=": "_xorAssign"
 }
 
 
