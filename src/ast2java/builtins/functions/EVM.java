@@ -73,8 +73,8 @@ public class EVM {
 
     public static void _leftShiftAssign(Object o1, Object o2){}
 
-    public static uint addmod(uint x, uint y, uint k){ return x; }
+    public static <T> T addmod(T x, T y, T k){ return x; }
 
-    public static uint mulmod(uint x, uint y, uint k){ return x; }
+    public static <T> T mulmod(T x, T y, T k){ return x; }
 
 }
