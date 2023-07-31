@@ -12,7 +12,7 @@ class TupleExpression:
         result = "("
         for component in self.components:
             result += component.get_content()
-            if component != self.components[-1]:
+            if component is not self.components[-1]:
                 result += ", "
         result += ")"
         return result

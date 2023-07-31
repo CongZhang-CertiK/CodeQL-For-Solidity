@@ -2,12 +2,14 @@ package certik.congzhang.tool.codeql.solidity.builtins.functions;
 
 import certik.congzhang.tool.codeql.solidity.builtins.uint.uint256;
 
-public class EVM {
+public class sol {
     public static void _require(Object... o){}
 
     public static void _revert(Object... o){}
 
     public static void _unchecked_start(){}
+
+    public static void _assembly_start(){}
 
     public static uint256 _int(Object i){ return new uint256(i); }
 

@@ -18,7 +18,7 @@ class VariableDeclarationStatement(Statement):
         result = self.eol
         for variable in self.variables:
             result += variable.get_content()[:-1]
-            if variable != self.variables[-1]:
+            if variable is not self.variables[-1]:
                 result += ", "
         if self.initial_value is not None:
             result += " = "

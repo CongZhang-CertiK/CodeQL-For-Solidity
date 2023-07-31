@@ -1,3 +1,6 @@
+from src.logger import logger
+
+
 class Block:
     def __init__(self, _ast, eol):
         self.ast = _ast
@@ -38,6 +41,11 @@ class Block:
             stmt = ReturnStatement(statement, self.eol + "\t")
         elif statement.get('type') == "BreakStatement":
             result += "\tbreak;"
+        elif statement.get('type') == "InLineAssemblyStatement":
+            from src.ast2java.statements.InLineAssemblyStatement import InLineAssemblyStatement
+            stmt = InLineAssemblyStatement(statement, self.eol + "\t")
+        else:
+            logger.debug("unresolved statement: " + statement.get('type'))
         if stmt is not None:
             result += stmt.get_content()
         return result
