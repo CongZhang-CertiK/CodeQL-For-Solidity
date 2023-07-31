@@ -29,33 +29,78 @@ public class uint80 implements uint {
     }
 
     @Override
-    public uint add(uint other) {
+    public uint _add(uint other) {
         return new uint80(this.value().add(other.value()));
     }
 
     @Override
-    public uint subtract(uint other) {
+    public uint _sub(uint other) {
         return new uint80(this.value().subtract(other.value()));
     }
 
     @Override
-    public uint multiply(uint other) {
+    public uint _mul(uint other) {
         return new uint80(this.value().multiply(other.value()));
     }
 
     @Override
-    public uint divide(uint other) {
+    public uint _div(uint other) {
         return new uint80(this.value().divide(other.value()));
     }
 
     @Override
-    public uint mod(uint other) {
+    public uint _mod(uint other) {
         return new uint80(this.value().mod(other.value()));
     }
 
     @Override
-    public uint pow(uint exponent) {
+    public uint _pow(uint exponent) {
         return new uint80(this.value().pow(exponent.value().intValue()));
+    }
+    
+    @Override
+    public Boolean _equal(uint other) {
+        return Boolean.False;
+    }
+
+    @Override
+    public uint _notEqual(uint other) {
+        return Boolean.False;
+    }
+
+    @Override
+    public Boolean _greaterEqual(uint other) {
+        return Boolean.False;
+    }
+
+    @Override
+    public uint _greaterThan(uint other) {
+        return Boolean.False;
+    }
+
+    @Override
+    public Boolean _lessEqual(uint other) {
+        return Boolean.False;
+    }
+
+    @Override
+    public uint _lessThan(uint other) {
+        return Boolean.False;
+    }
+    
+    @Override
+    public void _assign(uint other) {
+        this.value = other.value;
+    }
+
+    @Override
+    public void _addAssign(uint other) {
+        this.value += other.value;
+    }
+
+    @Override
+    public void _subAssign(uint other) {
+        this.value -= other.value;
     }
 
     @Override

@@ -18,40 +18,36 @@ public class address {
 
     private static final BigInteger MAX_VALUE = new BigInteger("ffffffffffffffffffffffffffffffffffffffff", 16);
 
-    // 声明balance方法
     public BigInteger balance() {
-        // 暂不实现，返回null
         return null;
     }
 
-    // 声明transfer方法
-    public boolean transfer(BigInteger amount) {
-        // 暂不实现，返回false
-        return false;
+    public Boolean transfer(BigInteger amount) {
+        return Boolean.FALSE;
     }
 
-    // 声明send方法
-    public boolean send(BigInteger amount) {
-        // 暂不实现，返回false
-        return false;
+    public Boolean send(BigInteger amount) {
+        return Boolean.FALSE;
     }
 
-    // 声明call方法
-    public boolean call(byte[] data) {
-        // 暂不实现，返回false
-        return false;
+    public Boolean call(byte[] data) {
+        return Boolean.FALSE;
     }
 
-    // 声明delegatecall方法
-    public boolean delegatecall(byte[] data) {
-        // 暂不实现，返回false
-        return false;
+    public Boolean delegatecall(byte[] data) {
+        return Boolean.FALSE;
     }
 
-    // 声明staticcall方法
-    public boolean staticcall(byte[] data) {
-        // 暂不实现，返回false
-        return false;
+    public Boolean staticcall(byte[] data) {
+        return Boolean.FALSE;
+    }
+
+    public Boolean equalTo(Object o) {
+        return Boolean.FALSE;
+    }
+
+    public Boolean notEqualTo(Object o) {
+        return Boolean.FALSE;
     }
 }
 
