@@ -5,11 +5,8 @@ import java.math.BigInteger;
 public class address {
     private BigInteger value;
 
-    public address(BigInteger value) {
-        if (value.signum() < 0 || value.compareTo(MAX_VALUE) > 0) {
-            throw new IllegalArgumentException("Value is out of range for Address");
-        }
-        this.value = value;
+    public address(Object o){
+        this.value = new BigInteger(o.toString());
     }
 
     public BigInteger value() {

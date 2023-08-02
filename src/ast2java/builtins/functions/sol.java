@@ -1,7 +1,10 @@
 package certik.congzhang.tool.codeql.solidity.builtins.functions;
 
+import certik.congzhang.tool.codeql.solidity.builtins.type;
 import certik.congzhang.tool.codeql.solidity.builtins.uint.*;
+import certik.congzhang.tool.codeql.solidity.builtins.bytes.*;
 import certik.congzhang.tool.codeql.solidity.builtins.string;
+import certik.congzhang.tool.codeql.solidity.builtins.address;
 
 public class sol {
     public static void _require(Object... o){}
@@ -78,10 +81,13 @@ public class sol {
 
     public static <T> T mulmod(T x, T y, T k){ return x; }
 
-    public static string _string(Object i){ return new string(o); }
+    public static string _string(Object o){ return new string(o); }
+
+    public static address _address(Object o){ return new address(o); }
+
+    public static type _type(Class<?> clazz){ return new type(clazz); }
 
     public static uint256 _uint(Object i){ return new uint256(i); }
-
     public static uint8 _uint8(Object i) { return new uint8(i); }
     public static uint16 _uint16(Object i) { return new uint16(i); }
     public static uint24 _uint24(Object i) { return new uint24(i); }
@@ -115,4 +121,37 @@ public class sol {
     public static uint248 _uint248(Object i) { return new uint248(i); }
     public static uint256 _uint256(Object i) { return new uint256(i); }
 
+    public static bytes _bytes(Object i) { return new bytes(i); }
+    public static bytes1 _bytes1(Object i) { return new bytes1(i); }
+    public static bytes2 _bytes2(Object i) { return new bytes2(i); }
+    public static bytes3 _bytes3(Object i) { return new bytes3(i); }
+    public static bytes4 _bytes4(Object i) { return new bytes4(i); }
+    public static bytes5 _bytes5(Object i) { return new bytes5(i); }
+    public static bytes6 _bytes6(Object i) { return new bytes6(i); }
+    public static bytes7 _bytes7(Object i) { return new bytes7(i); }
+    public static bytes8 _bytes8(Object i) { return new bytes8(i); }
+    public static bytes9 _bytes9(Object i) { return new bytes9(i); }
+    public static bytes10 _bytes10(Object i) { return new bytes10(i); }
+    public static bytes11 _bytes11(Object i) { return new bytes11(i); }
+    public static bytes12 _bytes12(Object i) { return new bytes12(i); }
+    public static bytes13 _bytes13(Object i) { return new bytes13(i); }
+    public static bytes14 _bytes14(Object i) { return new bytes14(i); }
+    public static bytes15 _bytes15(Object i) { return new bytes15(i); }
+    public static bytes16 _bytes16(Object i) { return new bytes16(i); }
+    public static bytes17 _bytes17(Object i) { return new bytes17(i); }
+    public static bytes18 _bytes18(Object i) { return new bytes18(i); }
+    public static bytes19 _bytes19(Object i) { return new bytes19(i); }
+    public static bytes20 _bytes20(Object i) { return new bytes20(i); }
+    public static bytes21 _bytes21(Object i) { return new bytes21(i); }
+    public static bytes22 _bytes22(Object i) { return new bytes22(i); }
+    public static bytes23 _bytes23(Object i) { return new bytes23(i); }
+    public static bytes24 _bytes24(Object i) { return new bytes24(i); }
+    public static bytes25 _bytes25(Object i) { return new bytes25(i); }
+    public static bytes26 _bytes26(Object i) { return new bytes26(i); }
+    public static bytes27 _bytes27(Object i) { return new bytes27(i); }
+    public static bytes28 _bytes28(Object i) { return new bytes28(i); }
+    public static bytes29 _bytes29(Object i) { return new bytes29(i); }
+    public static bytes30 _bytes30(Object i) { return new bytes30(i); }
+    public static bytes31 _bytes31(Object i) { return new bytes31(i); }
+    public static bytes32 _bytes32(Object i) { return new bytes32(i); }
 }

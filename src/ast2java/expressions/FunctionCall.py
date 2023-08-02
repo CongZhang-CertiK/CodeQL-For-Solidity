@@ -17,6 +17,8 @@ class FunctionCall:
         result = f"{keyword_map(self.expression, function=True)}("
         for argument in self.arguments:
             result += argument.get_content()
+            if self.expression == "type":
+                result += ".class"
             if argument != self.arguments[-1]:
                 result += ", "
         result += ")"
