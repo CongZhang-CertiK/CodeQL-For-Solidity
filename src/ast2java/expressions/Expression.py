@@ -11,7 +11,7 @@ class Expression:
         if self.node_type == 'stringLiteral':
             return '"' + self.ast.get('value') + '"'
         elif self.node_type == 'NumberLiteral':
-            return f"_int({self.ast.get('number')})"
+            return f"_uint({self.ast.get('number')})"
         elif self.node_type == 'BooleanLiteral':
             return keyword_map(str(self.ast.get('value')))
         elif self.node_type == 'BinaryOperation':

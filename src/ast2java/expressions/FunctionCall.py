@@ -14,7 +14,7 @@ class FunctionCall:
             self.arguments.append(Expression(argument))
 
     def get_content(self):
-        result = f"{keyword_map(self.expression)}("
+        result = f"{keyword_map(self.expression, function=True)}("
         for argument in self.arguments:
             result += argument.get_content()
             if argument != self.arguments[-1]:

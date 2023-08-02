@@ -11,7 +11,7 @@ class AssemblyExpression:
         if self.node_type == 'Identifier':
             return self.ast.get('name')
         elif self.node_type == 'DecimalNumber':
-            return f"_int({self.ast.get('value')})"
+            return f"_uint({self.ast.get('value')})"
         elif self.node_type == 'AssemblyExpression':
             arguments = self.ast.get('arguments')
             if len(arguments) == 0:

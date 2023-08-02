@@ -1,5 +1,6 @@
 package certik.congzhang.tool.codeql.solidity.builtins.functions;
 
+import certik.congzhang.tool.codeql.solidity.builtins.string;
 import certik.congzhang.tool.codeql.solidity.builtins.uint.uint256;
 
 public class asm {
@@ -8,9 +9,21 @@ public class asm {
 
     public static <T> T add(T o1, Boolean o2){ return o1;}
 
+    public static <T> T add(Boolean o1, T o2){ return o2;}
+
+    public static <T> T add(T o1, string o2){return o1;}
+
+    public static <T> T add(string o1, T o2){return o2;}
+
     public static <T> T sub(T o1, T o2){ return o1;}
 
     public static <T> T sub(T o1, Boolean o2){ return o1;}
+
+    public static <T> T sub(Boolean o1, T o2){ return o2;}
+
+    public static <T> T sub(T o1, string o2){return o1;}
+
+    public static <T> T sub(string o1, T o2){return o2;}
 
     public static <T> T mul(T o1, T o2){ return o1;}
 

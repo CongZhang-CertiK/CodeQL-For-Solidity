@@ -1,11 +1,17 @@
 package certik.congzhang.tool.codeql.solidity.builtins.bytes;
 
+import certik.congzhang.tool.codeql.solidity.builtins.uint.uint;
+
 import java.util.ArrayList;
 
 public class bytes implements Ibytes {
     private ArrayList<Byte> bytes;
 
     public bytes() {
+        this.bytes = new ArrayList<>();
+    }
+
+    public bytes(Object o){
         this.bytes = new ArrayList<>();
     }
 
@@ -17,6 +23,10 @@ public class bytes implements Ibytes {
     @Override
     public byte get(int index) {
         return bytes.get(index);
+    }
+
+    public byte get(uint o){
+        return bytes.get(o.value().intValue());
     }
 
     @Override

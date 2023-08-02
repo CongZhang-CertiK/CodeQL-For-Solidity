@@ -3,9 +3,10 @@ from .VariableDeclaration import VariableDeclaration
 
 
 class StateVariableDeclaration(ClassElement):
-    def __init__(self, ast):
+    def __init__(self, ast, in_library=False):
         super().__init__()
         self.ast = ast
+        self.in_library = in_library
         self.type = "StateVariableDeclaration"
         self.declarations = []
         self.eol = "\n\t"
@@ -16,7 +17,7 @@ class StateVariableDeclaration(ClassElement):
 
     def update(self):
         for variable_node in self.ast.get("variables"):
-            self.declarations.append(VariableDeclaration(variable_node))
+            self.declarations.append(VariableDeclaration(variable_node, self.in_library))
 
     def get_content(self):
         result = super().get_content()

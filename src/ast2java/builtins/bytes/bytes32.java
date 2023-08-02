@@ -1,6 +1,8 @@
 
 package certik.congzhang.tool.codeql.solidity.builtins.bytes;
 
+import certik.congzhang.tool.codeql.solidity.builtins.uint.uint;
+
 import java.math.BigInteger;
 
 public class bytes32 implements Ibytes {
@@ -11,20 +13,8 @@ public class bytes32 implements Ibytes {
 
     }
 
-    public bytes32(int value) {
-        for (int i = 0; i < SIZE; i++) {
-            bytes[i] = (byte) ((value >> (8 * i)) & 0xFF);
-        }
-    }
+    public bytes32(Object o) {
 
-    public bytes32(String value) {
-        BigInteger bigInt = new BigInteger(value, 16);
-        byte[] temp = bigInt.toByteArray();
-        int len = temp.length;
-        if (len > SIZE) {
-            throw new IllegalArgumentException("Input string is too long to fit into bytes32");
-        }
-        System.arraycopy(temp, 0, bytes, SIZE - len, len);
     }
 
     @Override
@@ -35,6 +25,10 @@ public class bytes32 implements Ibytes {
     @Override
     public byte get(int index) {
         return bytes[index];
+    }
+    
+    public byte get(uint o) {
+        return bytes[o.value().intValue()];
     }
 
     @Override

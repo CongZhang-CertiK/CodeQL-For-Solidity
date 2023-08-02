@@ -90,7 +90,7 @@ class JavaSourceFile:
             self.element_override(function_def)
             self.class_elements.append(function_def)
         elif node_type == "StateVariableDeclaration":
-            state_var_decl = StateVariableDeclaration(subnode)
+            state_var_decl = StateVariableDeclaration(subnode, self.ast.get('kind') == "library")
             self.element_override(state_var_decl)
             self.class_elements.append(state_var_decl)
         elif node_type == "EnumDefinition":
@@ -119,11 +119,12 @@ class JavaSourceFile:
         self.import_block.append("import certik.congzhang.tool.codeql.solidity.builtins.storage.*;\n")
         self.import_block.append("import certik.congzhang.tool.codeql.solidity.builtins.address;\n")
         self.import_block.append("import certik.congzhang.tool.codeql.solidity.builtins.msg;\n")
+        self.import_block.append("import certik.congzhang.tool.codeql.solidity.builtins.string;\n")
         self.import_block.append("import certik.congzhang.tool.codeql.solidity.builtins.inherit.*;\n")
         self.import_block.append("import certik.congzhang.tool.codeql.solidity.builtins.hint.*;\n")
         self.import_block.append("import certik.congzhang.tool.codeql.solidity.builtins.functions.*;\n")
-        self.import_block.append("import static certik.congzhang.tool.codeql.solidity.builtins.functions.sol.*;")
-        self.import_block.append("import static certik.congzhang.tool.codeql.solidity.builtins.functions.asm.*;")
+        self.import_block.append("import static certik.congzhang.tool.codeql.solidity.builtins.functions.sol.*;\n")
+        self.import_block.append("import static certik.congzhang.tool.codeql.solidity.builtins.functions.asm.*;\n")
         self.import_block.append("\n")
         self.import_block.append("import java.util.Map;\n")
         self.import_block.append("import java.util.ArrayList;\n")

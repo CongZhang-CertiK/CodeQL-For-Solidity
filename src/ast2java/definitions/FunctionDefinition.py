@@ -66,8 +66,12 @@ class FunctionDefinition(ClassElement):
             self.annotations.append(f"@{keyword_map(visibility)}")
             if visibility == "public" or visibility == "external":
                 self.visibility = "public"
+                if self.parent.ast.get('kind') == "library":
+                    self.visibility += " static"
             else:
                 self.visibility = "private"
+                if self.parent.ast.get('kind') == "library":
+                    self.visibility = "public static"
         mutability = self.ast.get('stateMutability')
         if mutability is not None:
             self.annotations.append(f"@{keyword_map(mutability)}")

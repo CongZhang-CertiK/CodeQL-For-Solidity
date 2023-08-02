@@ -10,8 +10,9 @@ class VariableDeclaration:
             self.node_type = self.ast.get('type')
             self.name = resolve_type(self.ast)
 
-    def __init__(self, ast_node):
+    def __init__(self, ast_node, in_library=False):
         self.ast = ast_node
+        self.in_library = in_library
         self.variable_node_type = self.ast.get('type')
         self.variable_type = self.VariableType(self.ast.get('typeName'))
         self.variable_name = self.ast.get('name')
@@ -21,6 +22,8 @@ class VariableDeclaration:
             self.expression = Expression(self.ast.get('expression'))
         self.visibility = self.ast.get('visibility')
         self.is_state_var = self.ast.get('isStateVar')
+        if self.in_library and self.is_state_var:
+            self.visibility = "public static"
         self.is_const = self.ast.get('isDeclaredConst')
         self.is_indexed = self.ast.get('isIndexed')
 

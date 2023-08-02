@@ -4,11 +4,8 @@ keyword_dict = {
     # keyword
     "public": "_public",
     "private": "_private",
-    # function
-    "revert": "_revert",
-    "require": "_require",
     # type
-    "string": "String",
+    # "string": "String",
     "bool": "Boolean",
     # expression
     "True": "true",
@@ -47,11 +44,52 @@ keyword_dict = {
     "^=": "_xorAssign"
 }
 
+function_dict = {
+    "revert": "_revert",
+    "require": "_require",
+    "uint8": "_uint8",
+    "uint16": "_uint16",
+    "uint24": "_uint24",
+    "uint32": "_uint32",
+    "uint40": "_uint40",
+    "uint48": "_uint48",
+    "uint56": "_uint56",
+    "uint64": "_uint64",
+    "uint72": "_uint72",
+    "uint80": "_uint80",
+    "uint88": "_uint88",
+    "uint96": "_uint96",
+    "uint104": "_uint104",
+    "uint112": "_uint112",
+    "uint120": "_uint120",
+    "uint128": "_uint128",
+    "uint136": "_uint136",
+    "uint144": "_uint144",
+    "uint152": "_uint152",
+    "uint160": "_uint160",
+    "uint168": "_uint168",
+    "uint176": "_uint176",
+    "uint184": "_uint184",
+    "uint192": "_uint192",
+    "uint200": "_uint200",
+    "uint208": "_uint208",
+    "uint216": "_uint216",
+    "uint224": "_uint224",
+    "uint232": "_uint232",
+    "uint240": "_uint240",
+    "uint248": "_uint248",
+    "uint256": "_uint256",
+    "string": "_string"
+}
 
-def keyword_map(type_name):
+
+def keyword_map(type_name, function=False):
     if type_name is None:
         return "NoneType"
-    return keyword_dict.get(type_name, type_name)
+    if not function:
+        return keyword_dict.get(type_name, type_name)
+    else:
+        return function_dict.get(type_name, type_name)
 
 
 def resolve_type(ast):
