@@ -19,3 +19,6 @@ class UnaryOperation(BaseExpression):
                 return self.operator + self.sub_expression.get_content()
             else:
                 return self.sub_expression.get_content() + self.operator
+
+    def get_exp_type(self):
+        return self.sub_expression.get_exp_type()

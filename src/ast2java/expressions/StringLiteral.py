@@ -9,3 +9,6 @@ class StringLiteral(BaseExpression):
 
     def get_content(self):
         return '"' + self.ast.get('value') + '"'
+
+    def get_exp_type(self):
+        return "string"

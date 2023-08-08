@@ -21,3 +21,6 @@ class NumberLiteral(BaseExpression):
         else:
             result = f"_uint({self.num})"
         return result
+
+    def get_exp_type(self):
+        return "uint256"

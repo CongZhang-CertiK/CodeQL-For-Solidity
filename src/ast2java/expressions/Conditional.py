@@ -12,3 +12,6 @@ class Conditional(BaseExpression):
     def get_content(self):
         return f"{self.condition.get_content()} ? " \
                f"{self.true_expression.get_content()} : {self.false_expression.get_content()}"
+
+    def get_exp_type(self):
+        self.true_expression.get_exp_type()

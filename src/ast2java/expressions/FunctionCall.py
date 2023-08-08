@@ -29,7 +29,7 @@ class FunctionCall(BaseExpression):
         result = f"{keyword_map(self.expression, function=True)}("
         for index in range(0, len(self.arguments)):
             argument = self.arguments[index]
-            logger.info(argument.get_exp_type())
+            logger.info(argument.get_exp_type() + ": " + argument.get_content())
             result += argument.get_content()
             if self.expression == "type":
                 result += ".class"
@@ -37,3 +37,6 @@ class FunctionCall(BaseExpression):
                 result += ", "
         result += ")"
         return result
+
+    def get_exp_type(self):
+        return "FunctionCall"

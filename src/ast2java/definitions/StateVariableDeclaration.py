@@ -10,6 +10,7 @@ class StateVariableDeclaration(ClassElement):
         self.in_library = self.parent.ast.get('kind') == 'library'
         self.type = "StateVariableDeclaration"
         self.declarations = []
+        self.var_decl_map = {}
         self.eol = "\n\t"
         self.update()
 
@@ -18,7 +19,9 @@ class StateVariableDeclaration(ClassElement):
 
     def update(self):
         for variable_node in self.ast.get("variables"):
-            self.declarations.append(VariableDeclaration(variable_node, self, self.in_library))
+            declaration = VariableDeclaration(variable_node, self, self.in_library)
+            self.declarations.append(declaration)
+            self.var_decl_map[declaration.variable_name] = declaration
 
     def get_content(self):
         result = super().get_content()

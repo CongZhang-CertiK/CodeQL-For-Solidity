@@ -29,7 +29,7 @@ class JavaSourceFile:
         # functions in this contract
         self.functions = {}
         # fields in this contract
-        self.fields: list[StateVariableDeclaration] = []
+        self.declarations = {}
         self.ast = None
 
     def keywork_mapping(self, word):
@@ -100,6 +100,7 @@ class JavaSourceFile:
             state_var_decl = StateVariableDeclaration(subnode, self)
             self.element_override(state_var_decl)
             self.class_elements.append(state_var_decl)
+            self.declarations.update(state_var_decl.var_decl_map)
         elif node_type == "EnumDefinition":
             enum_def = EnumDefinition(subnode, self)
             self.element_override(enum_def)

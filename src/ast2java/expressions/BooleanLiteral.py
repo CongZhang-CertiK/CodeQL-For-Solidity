@@ -9,3 +9,6 @@ class BooleanLiteral(BaseExpression):
 
     def get_content(self):
         return keyword_map(str(self.ast.get('value')))
+
+    def get_exp_type(self):
+        return 'Boolean'
