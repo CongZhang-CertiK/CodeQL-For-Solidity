@@ -3,9 +3,10 @@ from src.logger import logger
 
 
 class EnumDefinition(ClassElement):
-    def __init__(self, ast):
+    def __init__(self, ast, parent):
         super().__init__()
         self.ast = ast
+        self.parent = parent
         self.eol = "\n\t"
         self.name = self.ast.get('name')
         self.members: list[str] = []

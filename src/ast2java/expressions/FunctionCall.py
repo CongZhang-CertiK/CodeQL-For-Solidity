@@ -1,21 +1,35 @@
 from src.ast2java.expressions.Expression import Expression
 from src.ast2java.keywordMapping import keyword_map
+from src.logger import logger
+from .BaseExpression import BaseExpression
 
 
-class FunctionCall:
-    def __init__(self, ast):
-        self.ast = ast
+class FunctionCall(BaseExpression):
+    def __init__(self, ast, parent):
+        super().__init__(ast, parent)
         if type(self.ast.get('expression')) == str:
             self.expression = self.ast.get('expression')
         else:
-            self.expression = Expression(self.ast.get('expression')).get_content()
+            self.expression = Expression(self.ast.get('expression'), self).get_content()
         self.arguments = []
         for argument in self.ast.get('arguments'):
-            self.arguments.append(Expression(argument))
+            self.arguments.append(Expression(argument, self))
+        self.contract = self.find_contract()
+        self.function_definition = self.find_function()
+        # if self.function_definition is not None:
+        #     logger.info(self.function_definition.name)
+
+    def find_function(self):
+        function_defs = self.contract.functions
+        if self.expression in function_defs.keys():
+            return function_defs[self.expression]
+        return None
 
     def get_content(self):
         result = f"{keyword_map(self.expression, function=True)}("
-        for argument in self.arguments:
+        for index in range(0, len(self.arguments)):
+            argument = self.arguments[index]
+            logger.info(argument.get_exp_type())
             result += argument.get_content()
             if self.expression == "type":
                 result += ".class"

@@ -4,10 +4,10 @@ from src.ast2java.expressions.Expression import Expression
 
 
 class WhileStatement(Statement):
-    def __init__(self, _ast, eol):
-        super().__init__(_ast, eol)
+    def __init__(self, _ast, parent, eol):
+        super().__init__(_ast, parent, eol)
 
     def get_content(self):
-        result = f"{self.eol}while ({Expression(self.ast.get('condition')).get_content()})"
-        result += Block(self.ast.get('body'), self.eol).get_content()
+        result = f"{self.eol}while ({Expression(self.ast.get('condition'), self).get_content()})"
+        result += Block(self.ast.get('body'), self, self.eol).get_content()
         return result

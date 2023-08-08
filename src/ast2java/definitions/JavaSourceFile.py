@@ -5,7 +5,7 @@ from .FunctionDefinition import FunctionDefinition
 from .EnumDefinition import EnumDefinition
 from .StructDefinition import StructDefinition
 from .EventDefinition import EventDefinition
-from src.ast2java.expressions.StateVariableDeclaration import StateVariableDeclaration
+from .StateVariableDeclaration import StateVariableDeclaration
 from src.config import CONFIG
 from src.logger import logger
 from src.ast2java.utils import list_to_str
@@ -17,6 +17,7 @@ class JavaSourceFile:
         self.file_name = ""
         self.pragma_info = ""
         self.package_info = "package certik.congzhang.tool.codeql.solidity;"
+        # methods implemented by this contract
         self.implements = {}
         self.class_type = ""
         self.class_name = ""
@@ -25,6 +26,10 @@ class JavaSourceFile:
         self.class_definition_start = ""
         self.class_definition_end = "\n}"
         self.class_elements: list[ClassElement] = []
+        # functions in this contract
+        self.functions = {}
+        # fields in this contract
+        self.fields: list[StateVariableDeclaration] = []
         self.ast = None
 
     def keywork_mapping(self, word):
@@ -89,16 +94,18 @@ class JavaSourceFile:
             function_def = FunctionDefinition(subnode, self)
             self.element_override(function_def)
             self.class_elements.append(function_def)
+            # TODO: 这里应该用函数签名作key，暂时跳过
+            self.functions[function_def.name] = function_def
         elif node_type == "StateVariableDeclaration":
-            state_var_decl = StateVariableDeclaration(subnode, self.ast.get('kind') == "library")
+            state_var_decl = StateVariableDeclaration(subnode, self)
             self.element_override(state_var_decl)
             self.class_elements.append(state_var_decl)
         elif node_type == "EnumDefinition":
-            enum_def = EnumDefinition(subnode)
+            enum_def = EnumDefinition(subnode, self)
             self.element_override(enum_def)
             self.class_elements.append(enum_def)
         elif node_type == "StructDefinition":
-            struct_def = StructDefinition(subnode)
+            struct_def = StructDefinition(subnode, self)
             self.element_override(struct_def)
             self.class_elements.append(struct_def)
         elif node_type == "EventDefinition":

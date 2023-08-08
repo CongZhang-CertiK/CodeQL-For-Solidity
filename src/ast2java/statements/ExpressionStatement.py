@@ -3,9 +3,9 @@ from src.ast2java.expressions.Expression import Expression
 
 
 class ExpressionStatement(Statement):
-    def __init__(self, ast, eol):
-        super().__init__(ast, eol)
-        self.expression = Expression(self.ast.get('expression'))
+    def __init__(self, _ast, parent, eol):
+        super().__init__(_ast, parent, eol)
+        self.expression = Expression(self.ast.get('expression'), self)
 
     def get_content(self):
         result = self.eol

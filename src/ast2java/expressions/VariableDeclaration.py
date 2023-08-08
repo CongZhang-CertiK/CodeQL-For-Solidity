@@ -1,17 +1,18 @@
 from src.logger import logger
 from src.ast2java.keywordMapping import resolve_type
 from src.ast2java.expressions.Expression import Expression
+from .BaseExpression import BaseExpression
 
 
-class VariableDeclaration:
+class VariableDeclaration(BaseExpression):
     class VariableType:
         def __init__(self, ast_node):
             self.ast = ast_node
             self.node_type = self.ast.get('type')
             self.name = resolve_type(self.ast)
 
-    def __init__(self, ast_node, in_library=False):
-        self.ast = ast_node
+    def __init__(self, ast_node, parent, in_library=False):
+        super().__init__(ast_node, parent)
         self.in_library = in_library
         self.variable_node_type = self.ast.get('type')
         self.variable_type = self.VariableType(self.ast.get('typeName'))
@@ -19,7 +20,7 @@ class VariableDeclaration:
         self.has_expression = False
         if self.ast.get('expression') is not None:
             self.has_expression = True
-            self.expression = Expression(self.ast.get('expression'))
+            self.expression = Expression(self.ast.get('expression'), self)
         self.visibility = self.ast.get('visibility')
         self.is_state_var = self.ast.get('isStateVar')
         if self.in_library and self.is_state_var:

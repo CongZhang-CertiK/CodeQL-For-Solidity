@@ -16,6 +16,7 @@ class FunctionDefinition(ClassElement):
         self.class_type = parent.class_type
         self.eol = "\n\t"
         self.java_modifiers = ""
+        self.return_type = None
         self.name = self.ast.get('name')
         self.parameters: list[Parameter] = []
         self.return_parameters: list[Parameter] = []
@@ -83,12 +84,14 @@ class FunctionDefinition(ClassElement):
             self.name = self.parent.class_name
             self.java_modifiers = ""
         else:
+            self.return_type = None
             if len(self.return_parameters) == 0:
-                self.java_modifiers = f"{self.visibility} void "
+                self.return_type = 'void'
             elif len(self.return_parameters) == 1:
-                self.java_modifiers = f"{self.visibility} {self.return_parameters[0].type_name} "
+                self.return_type = self.return_parameters[0].type_name
             else:
-                self.java_modifiers = f"{self.visibility} TODO "
+                self.return_type = 'TODO'
+            self.java_modifiers = f"{self.visibility} {self.return_type} "
 
     def update_body(self):
         if len(self.body_ast) == 0:
@@ -100,7 +103,7 @@ class FunctionDefinition(ClassElement):
                 if param.name is None:
                     continue
                 return_param_decl += f"{self.eol}\t{param.type_name} {param.name} = null;"
-            self.body += Block(self.body_ast, self.eol, return_param_decl).get_content()
+            self.body += Block(self.body_ast, self, self.eol, return_param_decl).get_content()
 
     def get_content(self):
         result = ""

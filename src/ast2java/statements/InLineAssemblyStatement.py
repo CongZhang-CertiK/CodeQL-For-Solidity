@@ -4,8 +4,8 @@ from src.ast2java.expressions.Expression import Expression
 
 
 class InLineAssemblyStatement(Statement):
-    def __init__(self, _ast, eol):
-        super().__init__(_ast, eol)
+    def __init__(self, _ast, parent, eol):
+        super().__init__(_ast, parent, eol)
 
     def get_content(self):
         result = f"{self.eol}_assembly_start();"

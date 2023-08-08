@@ -1,11 +1,12 @@
 from src.ast2java.expressions.Expression import Expression
-
+from .BaseExpression import BaseExpression
 from src.ast2java.keywordMapping import keyword_map
 
-class UnaryOperation:
-    def __init__(self, ast):
-        self.ast = ast
-        self.sub_expression = Expression(self.ast.get('subExpression'))
+
+class UnaryOperation(BaseExpression):
+    def __init__(self, ast, parent):
+        super().__init__(ast, parent)
+        self.sub_expression = Expression(self.ast.get('subExpression'), self)
         self.operator = self.ast.get('operator')
         self.is_prefix = self.ast.get('isPrefix')
 

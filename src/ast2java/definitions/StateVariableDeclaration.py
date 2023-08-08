@@ -1,11 +1,12 @@
 from src.ast2java.definitions.ClassElement import ClassElement
-from .VariableDeclaration import VariableDeclaration
-from .BaseExpression import BaseExpression
+from src.ast2java.expressions.VariableDeclaration import VariableDeclaration
 
 
-class StateVariableDeclaration(BaseExpression):
-    def __init__(self, ast, parent):
-        super().__init__(ast, parent)
+class StateVariableDeclaration(ClassElement):
+    def __init__(self, ast, parent, in_library=False):
+        super().__init__()
+        self.ast = ast
+        self.parent = parent
         self.in_library = self.parent.ast.get('kind') == 'library'
         self.type = "StateVariableDeclaration"
         self.declarations = []

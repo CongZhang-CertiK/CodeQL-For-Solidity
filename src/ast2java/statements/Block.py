@@ -2,8 +2,9 @@ from src.logger import logger
 
 
 class Block:
-    def __init__(self, _ast, eol, rpd=""):
+    def __init__(self, _ast, parent, eol, rpd=""):
         self.ast = _ast
+        self.parent = parent
         self.eol = eol
         self.rpd = rpd
 
@@ -22,30 +23,30 @@ class Block:
         stmt = None
         if statement.get('type') == "IfStatement":
             from src.ast2java.statements.IfStatement import IfStatement
-            stmt = IfStatement(statement, self.eol + "\t")
+            stmt = IfStatement(statement, self.parent, self.eol + "\t")
         elif statement.get('type') == "WhileStatement":
             from src.ast2java.statements.WhileStatement import WhileStatement
-            stmt = WhileStatement(statement, self.eol + "\t")
+            stmt = WhileStatement(statement, self.parent, self.eol + "\t")
         elif statement.get('type') == "UncheckedStatement":
             from src.ast2java.statements.UncheckedStatement import UncheckedStatement
-            stmt = UncheckedStatement(statement, self.eol + "\t")
+            stmt = UncheckedStatement(statement, self.parent, self.eol + "\t")
         elif statement.get('type') == "VariableDeclarationStatement":
             from src.ast2java.statements.VariableDeclarationStatement import VariableDeclarationStatement
-            stmt = VariableDeclarationStatement(statement, self.eol + "\t")
+            stmt = VariableDeclarationStatement(statement, self.parent, self.eol + "\t")
         elif statement.get('type') == "ExpressionStatement":
             from src.ast2java.statements.ExpressionStatement import ExpressionStatement
-            stmt = ExpressionStatement(statement, self.eol + "\t")
+            stmt = ExpressionStatement(statement, self.parent, self.eol + "\t")
         elif statement.get('type') == "EmitStatement":
             from src.ast2java.statements.EmitStatement import EmitStatement
-            stmt = EmitStatement(statement, self.eol + "\t")
+            stmt = EmitStatement(statement, self.parent, self.eol + "\t")
         elif statement.get('type') == "ReturnStatement":
             from src.ast2java.statements.ReturnStatement import ReturnStatement
-            stmt = ReturnStatement(statement, self.eol + "\t")
+            stmt = ReturnStatement(statement, self.parent, self.eol + "\t")
         elif statement.get('type') == "BreakStatement":
             result += "\tbreak;"
         elif statement.get('type') == "InLineAssemblyStatement":
             from src.ast2java.statements.InLineAssemblyStatement import InLineAssemblyStatement
-            stmt = InLineAssemblyStatement(statement, self.eol + "\t")
+            stmt = InLineAssemblyStatement(statement, self.parent, self.eol + "\t")
         else:
             logger.debug("unresolved statement: " + statement.get('type'))
         if stmt is not None:

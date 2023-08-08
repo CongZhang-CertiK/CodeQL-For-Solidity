@@ -1,48 +1,54 @@
 from src.logger import logger
 from src.ast2java.keywordMapping import keyword_map
+from .BaseExpression import BaseExpression
 
 
-class Expression:
-    def __init__(self, ast_node):
-        self.ast = ast_node
-        self.node_type = self.ast.get('type')
-
-    def get_content(self):
-        if self.node_type == 'stringLiteral':
-            return '"' + self.ast.get('value') + '"'
-        elif self.node_type == 'NumberLiteral':
-            return f"_uint({self.ast.get('number')})"
-        elif self.node_type == 'BooleanLiteral':
-            return keyword_map(str(self.ast.get('value')))
-        elif self.node_type == 'BinaryOperation':
-            from .BinaryOperation import BinaryOperation
-            return BinaryOperation(self.ast).get_content()
-        elif self.node_type == 'UnaryOperation':
-            from .UnaryOperation import UnaryOperation
-            return UnaryOperation(self.ast).get_content()
-        elif self.node_type == 'Identifier':
-            return self.ast.get('name')
-        elif self.node_type == 'MemberAccess':
-            from .MemberAccess import MemberAccess
-            return MemberAccess(self.ast).get_content()
-        elif self.node_type == 'TupleExpression':
-            from .TupleExpression import TupleExpression
-            return TupleExpression(self.ast).get_content()
-        elif self.node_type == 'IndexAccess':
-            from .IndexAccess import IndexAccess
-            return IndexAccess(self.ast).get_content()
-        elif self.node_type == 'Conditional':
-            from .Conditional import Conditional
-            return Conditional(self.ast).get_content()
-        elif self.node_type == 'NewExpression':
-            from .NewExpression import NewExpression
-            return NewExpression(self.ast).get_content()
-        elif self.node_type == 'FunctionCall':
-            from .FunctionCall import FunctionCall
-            return FunctionCall(self.ast).get_content()
-        elif self.node_type == 'ElementaryTypeName':
-            return keyword_map(self.ast.get('name'))
-        else:
-            logger.debug('unresolved Expression')
-            logger.debug(self.node_type)
-            return self.node_type
+def Expression(ast, parent):
+    node_type = ast.get('type')
+    expression = None
+    if node_type == 'stringLiteral':
+        from .StringLiteral import StringLiteral
+        expression = StringLiteral(ast, parent)
+    elif node_type == 'NumberLiteral':
+        from .NumberLiteral import NumberLiteral
+        expression = NumberLiteral(ast, parent)
+    elif node_type == 'BooleanLiteral':
+        from .BooleanLiteral import BooleanLiteral
+        return BooleanLiteral(ast, parent)
+    elif node_type == 'BinaryOperation':
+        from .BinaryOperation import BinaryOperation
+        expression = BinaryOperation(ast, parent)
+    elif node_type == 'UnaryOperation':
+        from .UnaryOperation import UnaryOperation
+        expression = UnaryOperation(ast, parent)
+    elif node_type == 'Identifier':
+        from .Identifier import Identifier
+        expression = Identifier(ast, parent)
+    elif node_type == 'MemberAccess':
+        from .MemberAccess import MemberAccess
+        expression = MemberAccess(ast, parent)
+    elif node_type == 'TupleExpression':
+        from .TupleExpression import TupleExpression
+        expression = TupleExpression(ast, parent)
+    elif node_type == 'IndexAccess':
+        from .IndexAccess import IndexAccess
+        expression = IndexAccess(ast, parent)
+    elif node_type == 'Conditional':
+        from .Conditional import Conditional
+        expression = Conditional(ast, parent)
+    elif node_type == 'NewExpression':
+        from .NewExpression import NewExpression
+        expression = NewExpression(ast, parent)
+    elif node_type == 'FunctionCall':
+        from .FunctionCall import FunctionCall
+        expression = FunctionCall(ast, parent)
+    elif node_type == 'ElementaryTypeName':
+        from .ElementaryTypeName import ElementaryTypeName
+        expression = ElementaryTypeName(ast, parent)
+    else:
+        logger.debug('unresolved Expression')
+        logger.debug(node_type)
+    if expression is not None:
+        return expression
+    else:
+        return BaseExpression(ast, parent).unresolve()
