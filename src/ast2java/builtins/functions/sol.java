@@ -15,6 +15,10 @@ public class sol {
 
     public static void _assembly_start(){}
 
+    public static void _function_body(){}
+
+    public static address payable(Object o){return new address(0);}
+
     public static <T> T _add(T o1, T o2){ return o1;}
 
     public static <T> T _sub(T o1, T o2){ return o1;}

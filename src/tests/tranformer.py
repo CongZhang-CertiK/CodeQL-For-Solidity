@@ -11,6 +11,15 @@ def test_sol2ast():
 
 
 def test_ast2java(source_unit):
+    import shutil
+    import os
+    builtin_dist = CONFIG.dist
+    if os.path.exists(builtin_dist):
+        shutil.rmtree(builtin_dist)
+    os.mkdir(CONFIG.dist)
+    builtin_dist = CONFIG.dist + "/builtins"
+    # os.mkdir(builtin_dist)
+    shutil.copytree(CONFIG.builtins, builtin_dist)
     gen_java_from_ast(source_unit)
 
 

@@ -5,7 +5,7 @@ from .compilationGlobal import compilation_global
 
 
 def gen_java_from_ast(source_unit):
-    copy_builtins_to_dist()
+    # copy_builtins_to_dist()
     compilation_units_list = scatter_to_compilation_units(source_unit)
     for compilation_unit in compilation_units_list:
         pragma_directive, contract_definition = compilation_unit
@@ -48,11 +48,3 @@ def reorg_compilation_tree(compilation_units_dict):
             reorged_units.append(compilation_unit)
     return reorged_units
 
-
-def copy_builtins_to_dist():
-    import shutil
-    import os
-    builtin_dist = CONFIG.dist + "/builtins"
-    if os.path.exists(builtin_dist):
-        shutil.rmtree(builtin_dist)
-    shutil.copytree(CONFIG.builtins, builtin_dist)

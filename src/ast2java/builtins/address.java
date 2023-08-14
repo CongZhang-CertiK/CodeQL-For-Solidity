@@ -5,6 +5,8 @@ import java.math.BigInteger;
 public class address {
     private BigInteger value;
 
+    public BigInteger balance;
+
     public address(Object o){
         this.value = new BigInteger(o.toString());
     }

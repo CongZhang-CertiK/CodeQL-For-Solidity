@@ -13,6 +13,8 @@ class Identifier(BaseExpression):
 
     def get_content(self):
         result = self.name
+        if self.name == '_':
+            result = "_function_body()"
         return result
 
     def get_exp_type(self):

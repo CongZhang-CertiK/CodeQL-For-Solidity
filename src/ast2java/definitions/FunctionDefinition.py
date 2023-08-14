@@ -78,6 +78,8 @@ class FunctionDefinition(ClassElement):
             self.annotations.append(f"@{keyword_map(mutability)}")
         if self.ast.get('isVirtual'):
             self.annotations.append(f"@virtual")
+        for modifier in self.sol_modifiers:
+            self.annotations.append(f"@{modifier.get('name')}")
 
     def update_java_modifiers(self):
         if self.name == "constructor":

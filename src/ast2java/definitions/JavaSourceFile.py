@@ -5,6 +5,7 @@ from .FunctionDefinition import FunctionDefinition
 from .EnumDefinition import EnumDefinition
 from .StructDefinition import StructDefinition
 from .EventDefinition import EventDefinition
+from .ModifierDefinition import ModifierDefinition
 from .StateVariableDeclaration import StateVariableDeclaration
 from src.config import CONFIG
 from src.logger import logger
@@ -116,7 +117,9 @@ class JavaSourceFile:
         elif node_type == "UsingForDeclaration":
             pass
         elif node_type == "ModifierDefinition":
-            pass
+            modifier_def = ModifierDefinition(subnode, self)
+            self.element_override(modifier_def)
+            self.class_elements.append(modifier_def)
         else:
             logger.info(node_type)
 

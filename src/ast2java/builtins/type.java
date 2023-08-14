@@ -13,9 +13,9 @@ public class type {
 
     public string name = new string();
 
-    public uint256 min = new uint256();
+    public uint256 min = new uint256(0);
 
-    public uint256 max = new uint256();
+    public uint256 max = new uint256(1);
 
     public type(Class<?> clazz){
     }

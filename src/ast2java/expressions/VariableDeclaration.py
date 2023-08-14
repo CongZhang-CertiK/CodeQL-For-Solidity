@@ -32,7 +32,8 @@ class VariableDeclaration(BaseExpression):
         if self.variable_node_type == "VariableDeclaration":
             result = ""
             if self.visibility is not None:
-                result += self.visibility + " "
+                if self.visibility != "default":
+                    result += self.visibility + " "
             if self.is_const is not None and self.is_const:
                 result += "final "
             result += self.variable_type.name
