@@ -1,0 +1,35 @@
+# If not specified, workdir is $PWD. Keep workdir unchanged across testing cycles you want to use cached results
+workdir: ./workdir
+# If use_cache is set to True:
+# 1. The same project under the same paresol + ocaml_solidity version will not re-run.
+# 2. The script will fetch the existing result from $WORKDIR/output_${ocaml_solidty_version}_${paresol_version}/${project_id}
+# 3. The script will assume the downloaded project is already in the $workdir and will not re-download the project.
+# Recommended value: True
+use_cache: True
+# Which version of paresol and ocaml_solidity you want to test?
+# The names here can be git commit hash, branch or tag, the script will run ```git checkout $VERSION``` to fetch the code
+# 'earlier' target is optional. 'current' target is mandatory.
+# If 'earlier' is not specified, the script will run 'current' version.
+# If 'earlier' is specified, the script will run both versions and compares the results for regression check.
+target:
+  current:
+    ocaml_solidity_version: v0.6.0-visitors
+    paresol_version: 0.0.7
+    codeql_version: 0.0.1
+# S3 bucket that stores the audit projects
+# s3_bucket: accelerator-sources-prod
+# AWS credentials profile (the entry name in ~/.aws/credentials that contains aws_access_key_id, aws_secret_acess_key, aws_session_token)
+# aws_profile: myprofile
+# projects:
+    # The project ID provided as an example here comes from a whitelist.
+    # The ``projects.csv'' file is the full whitelist so far. This file is derived from
+    # https://docs.google.com/spreadsheets/d/1fEO7WiDEwHaw_TqMPWXT12CJe3_07fmZGRi-LCThZ50/edit#gid=0
+    # The first batch contains 25 projects.
+    # If 'loc' is not specified, the project is from AWS S3.
+    # If 'loc' is specified, the project is from local directory (relative path to $workdir or absolute path)
+  # - project:
+  #     id: 077ec810-7448-11ed-9e7b-cb6683d8c238
+  # - project:
+  #     id: MoonGame
+  #     loc: projects/MoonGame
+
