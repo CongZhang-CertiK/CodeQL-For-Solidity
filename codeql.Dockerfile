@@ -9,4 +9,6 @@ ARG paresol_version
 FROM paresol_testing_${ocaml_solidity_version}_${paresol_version}
 
 WORKDIR /workdir
-RUN echo 1
+COPY transform.py /workdir
+COPY runner.py /workdir
+COPY triage.py /workdir

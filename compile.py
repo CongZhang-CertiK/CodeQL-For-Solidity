@@ -5,9 +5,9 @@ import yaml
 import shutil
 
 
-def run_docker(project_id, ocaml_solidity_version, paresol_version, workdir):
+def run_docker(project_id, ocaml_solidity_version, paresol_version, codeql_version, workdir):
     """Start end-to-end testing by running a script inside a runner image's Docker container"""
-    container_name = f'paresol_runner_for_{project_id.lower()}_{ocaml_solidity_version}_{paresol_version}'
+    container_name = f'codeql_runner_for_{project_id.lower()}_{ocaml_solidity_version}_{paresol_version}'
     workdir_real = os.path.realpath(workdir)
     output_dir_host = os.path.join(
         workdir_real, f'output_{ocaml_solidity_version}_{paresol_version}', f'{project_id}')
@@ -39,7 +39,7 @@ def run_docker(project_id, ocaml_solidity_version, paresol_version, workdir):
         f'{input_dir_host}:/workdir/input',
     ] + environment_args + [
         f'--name={container_name}',
-        f'paresol_testing_{ocaml_solidity_version}_{paresol_version}',
+        f'codeql_build_{ocaml_solidity_version}_{paresol_version}_{codeql_version}',
         # '/bin/bash'
         'python3',
         'runner.py'
@@ -66,10 +66,13 @@ def run_targets(targets, config, workdir):
         for target in targets:
             ocaml_solidity_version = target['ocaml_solidity_version']
             paresol_version = target['paresol_version']
+            codeql_version = target['codeql_version']
             for project in config['projects']:
                 futures.append(
                     executor.submit(
-                        run_docker, project['project']['id'], ocaml_solidity_version, paresol_version, workdir
+                        run_docker,
+                        project['project']['id'],
+                        ocaml_solidity_version, paresol_version, codeql_version, workdir
                     )
                 )
         for future in concurrent.futures.as_completed(futures):

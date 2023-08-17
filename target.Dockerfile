@@ -24,9 +24,6 @@ RUN cd /workdir/paresol && git checkout $paresol_version && \
     opam install -y logs && \
     dune build
 ENV PATH=/workdir/paresol/_build/install/default/bin:${PATH}
-COPY transform.py /workdir
-COPY runner.py /workdir
-COPY triage.py /workdir
 RUN npm install -g --prefix=npm_modules solidity-bytes-utils
 RUN npm install -g --prefix=npm_modules @openzeppelin/contracts-upgradeable@4.7
 RUN npm install -g --prefix=npm_modules @openzeppelin/contracts@4.7
