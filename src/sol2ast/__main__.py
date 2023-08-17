@@ -8,7 +8,7 @@ from . import parser
 if __name__ == "__main__":
     if not len(sys.argv)>2 or sys.argv[1] not in ("parse","outline"):
         print("\n- missing subcommand or path to solidity file.\n")
-        print("#> python -m sol2ast <subcommand> <solidity file>")
+        print("#> python -m solidity_parser <subcommand> <solidity file>")
         print("")
         print("\t subcommands:")
         print("\t\t parse   ... print the parsetree for the sourceUnit")
@@ -71,4 +71,3 @@ if __name__ == "__main__":
                     txtAttribs.append(funcObj.stateMutability)
                 print(("\t" * level) + "* " + str(name) + "\t\t (" + ','.join(txtAttribs)+ ")")
             level -= 2
-

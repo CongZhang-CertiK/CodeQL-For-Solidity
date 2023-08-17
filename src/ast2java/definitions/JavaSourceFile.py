@@ -48,8 +48,9 @@ class JavaSourceFile:
         self.class_type = self.keywork_mapping(ast.get('kind'))
         self.class_definition_start = ""
         base_contracts = []
-        for base_contract in self.ast.get('baseContracts'):
-            base_contracts.append(base_contract.get('baseName').get('namePath'))
+        if self.ast.get('baseContracts') is not None:
+            for base_contract in self.ast.get('baseContracts'):
+                base_contracts.append(base_contract.get('baseName').get('namePath'))
         self.class_definition_start += f"@inherit({{{list_to_str(base_contracts)}}})\n"
         self.class_definition_start += f"public {self.class_type} {self.class_name} {{"
         for name in base_contracts:
