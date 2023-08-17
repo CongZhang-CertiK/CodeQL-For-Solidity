@@ -69,25 +69,25 @@ shutil.copytree(input, os.path.join(output_dir, 'original'))
 
 if return_code == 0:
     print(f'Successfully built original {project_id}!')
-    transform.walk_files(input, input_diff, input_transformed,
-                         project_id, output_dir, failed_set)
 else:
     print("Auto build failed on original project")
+
+transform.walk_files(input, input_diff, input_transformed, project_id, output_dir, failed_set)
 
 print(f'finished flattening {project_id}!')
 shutil.copytree(input_transformed, os.path.join(output_dir, 'flattened'))
 shutil.copytree(input_diff, os.path.join(output_dir, 'diff'))
-print(f'finished creating arfifacts {project_id}!')
+# print(f'finished creating arfifacts {project_id}!')
 
 # run auto-build on transformed project
-auto_build_work_dir = os.path.join(
-    output_dir, 'auto_build_artifacts_transformed')
-os.mkdir(auto_build_work_dir)
-result = subprocess.run(["/workdir/auto-build/auto-build.sh", input_transformed], env=my_env,
-                        cwd=auto_build_work_dir, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-return_code = result.returncode
-# FIXME: partial success is a success?
-if return_code == 0:
-    print('Successfully built transformed project!')
-else:
-    print('Failed building transformed project!')
+# auto_build_work_dir = os.path.join(
+#     output_dir, 'auto_build_artifacts_transformed')
+# os.mkdir(auto_build_work_dir)
+# result = subprocess.run(["/workdir/auto-build/auto-build.sh", input_transformed], env=my_env,
+#                         cwd=auto_build_work_dir, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+# return_code = result.returncode
+# # FIXME: partial success is a success?
+# if return_code == 0:
+#     print('Successfully built transformed project!')
+# else:
+#     print('Failed building transformed project!')

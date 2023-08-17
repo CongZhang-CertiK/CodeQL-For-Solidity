@@ -139,8 +139,8 @@ def walk_files(input_dir, diff_dir, flattened_dir, project_name, output_dir, fai
             continue
         for file in files:
             # skip files that can't be built by auto-build
-            if os.path.join(root, file) in failed_set:
-                continue
+            # if os.path.join(root, file) in failed_set:
+            #     continue
             if file.endswith(".sol"):
                 diff_file_path = os.path.join(
                     diff_dir, os.path.relpath(root, input_dir), file)
