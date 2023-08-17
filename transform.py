@@ -99,6 +99,7 @@ def write_diff(diff_file_path, from_file, to_file):
 
 def handle_file(workdir, root, file, diff_file_path, flattened_file_path, project_name):
     src_file = os.path.join(root, file)
+    print("processing file: " + src_file)
     stdout_file_name = str(file) + "_stdout"
     stderr_file_name = str(file) + "_stderr"
     stdout_file = os.path.join(root, stdout_file_name)
@@ -108,26 +109,29 @@ def handle_file(workdir, root, file, diff_file_path, flattened_file_path, projec
         result = subprocess.run(["paresol", src_file],
                                 cwd=workdir, stdout=outfile, stderr=errfile)
         return_code = result.returncode
-        if return_code == 0:
-            # transform success, let's keep the section after "@0"
-            rewrite_file(stdout_file)
-            write_diff(diff_file_path, src_file, stdout_file)
-            shutil.copyfile(stdout_file, flattened_file_path)
+    if return_code == 0:
+        # transform success, let's keep the section after "@0"
+        print("flattening succeeded on file: " + src_file)
+        rewrite_file(stdout_file)
+        write_diff(diff_file_path, src_file, stdout_file)
+        shutil.copyfile(stdout_file, flattened_file_path)
     if return_code != 0:
-        os.remove(flattened_file_path)
-        error_written = False
-        with open(stderr_file, 'r') as file:
-            data = file.read()
-            if len(data) != 0:
-                triage.report_transform_error(
-                    project_name, str(src_file), data)
-                error_written = True
-        if not error_written:
-            with open(stdout_file, 'r') as file:
-                data = file.read()
-                if len(data) != 0:
-                    triage.report_transform_error(
-                        project_name, str(src_file), data)
+        print("flattening failed on file: " + src_file)
+        shutil.copyfile(stderr_file, flattened_file_path)
+        # os.remove(flattened_file_path)
+        # error_written = False
+        # with open(stderr_file, 'r') as file:
+        #     data = file.read()
+        #     if len(data) != 0:
+        #         triage.report_transform_error(
+        #             project_name, str(src_file), data)
+        #         error_written = True
+        # if not error_written:
+        #     with open(stdout_file, 'r') as file:
+        #         data = file.read()
+        #         if len(data) != 0:
+        #             triage.report_transform_error(
+        #                 project_name, str(src_file), data)
     os.remove(stderr_file)
     os.remove(stdout_file)
 
