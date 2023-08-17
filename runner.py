@@ -65,7 +65,7 @@ if os.path.exists(os.path.join(input, 'node_modules')):
     cleanup(os.path.join(input, 'node_modules'))
 
 # save un-flattened source to a zip
-shutil.make_archive(os.path.join(output_dir, 'orig'), 'tar', input)
+shutil.copytree(input, os.path.join(output_dir, 'original'))
 
 if return_code == 0:
     print(f'Successfully built original {project_id}!')
@@ -75,8 +75,8 @@ else:
     print("Auto build failed on original project")
 
 print(f'finished flattening {project_id}!')
-shutil.make_archive(os.path.join(output_dir, 'tran'), 'tar', input_transformed)
-shutil.make_archive(os.path.join(output_dir, 'diff'), 'tar', input_diff)
+shutil.copytree(input_transformed, os.path.join(output_dir, 'flattened'))
+shutil.copytree(input_diff, os.path.join(output_dir, 'diff'))
 print(f'finished creating arfifacts {project_id}!')
 
 # run auto-build on transformed project

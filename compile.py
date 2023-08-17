@@ -11,6 +11,8 @@ def run_docker(project_id, ocaml_solidity_version, paresol_version, workdir):
     workdir_real = os.path.realpath(workdir)
     output_dir_host = os.path.join(
         workdir_real, f'output_{ocaml_solidity_version}_{paresol_version}', f'{project_id}')
+    if os.path.exists(output_dir_host):
+        shutil.rmtree(output_dir_host)
     input_dir_host = os.path.join(workdir_real, 'input', f'{project_id}')
     environment_args = [
         '-e',
