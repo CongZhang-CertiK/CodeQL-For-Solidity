@@ -1,6 +1,6 @@
 altgraph==0.17.3
 antiorm==1.2.1
-antlr4-python3-runtime==4.13.0
+antlr4-python3-runtime==4.11.1
 certifi==2023.7.22
 charset-normalizer==3.2.0
 db==0.1.1
