@@ -48,6 +48,32 @@ def build_base_image(workdir):
     subprocess.check_call(command, cwd=workdir)
 
 
+def build_target_image(targets, workdir):
+    """Docker images hierachy: base image -> target image (with ocaml_solidity and paresol installed
+     In this function, we build target image. It raises an exception if anything goes wrong"""
+    for target in targets:
+        ocaml_solidity_version = target['ocaml_solidity_version']
+        paresol_version = target['paresol_version']
+        if check_image_exists('paresol_testing_'+ocaml_solidity_version+'_'+paresol_version):
+            continue
+        command = [
+            'docker',
+            'build',
+            '-t',
+            f'paresol_testing_{ocaml_solidity_version}_{paresol_version}',
+            '--platform',
+            'linux/x86_64',
+            '--build-arg',
+            f'ocaml_solidity_version={ocaml_solidity_version}',
+            '--build-arg',
+            f'paresol_version={paresol_version}',
+            '-f',
+            'target.Dockerfile',
+            '.'
+        ]
+        subprocess.check_call(command, cwd=workdir)
+
+
 def build_codeql_image(targets, workdir):
     """Docker images hierachy: base image -> target image (with ocaml_solidity and paresol installed
      In this function, we build target image. It raises an exception if anything goes wrong"""
@@ -106,8 +132,32 @@ def setup_environment(workdir):
     else:
         subprocess.check_call(command_pull, cwd=ocaml_solidity_path)
 
+    # auto-build
+    auto_build_path = os.path.join(workdir, 'auto-build')
+    command_download[2] = 'git@github.com:certikproject/auto-build'
+    if not os.path.exists(auto_build_path):
+        subprocess.check_call(command_download, cwd=workdir)
+        command = [
+            'git',
+            'checkout',
+            'stable'
+        ]
+        subprocess.check_call(command, cwd=auto_build_path)
+        command = [
+            'git',
+            'submodule',
+            'update',
+            '--init',
+            '--recursive'
+        ]
+        subprocess.check_call(command, cwd=auto_build_path)
+
     shutil.copyfile('base.Dockerfile', os.path.join(workdir, 'base.Dockerfile'))
+    shutil.copyfile('target.Dockerfile', os.path.join(workdir, 'target.Dockerfile'))
     shutil.copyfile('codeql.Dockerfile', os.path.join(workdir, 'codeql.Dockerfile'))
+    shutil.copyfile('transform.py', os.path.join(workdir, 'transform.py'))
+    shutil.copyfile('runner.py', os.path.join(workdir, 'runner.py'))
+    shutil.copyfile('triage.py', os.path.join(workdir, 'triage.py'))
 
 
 if __name__ == "__main__":
@@ -136,4 +186,5 @@ if __name__ == "__main__":
         if target in config['target']:
             targets.append(config['target'][target])
 
+    build_target_image(targets, workdir)
     build_codeql_image(targets, workdir)

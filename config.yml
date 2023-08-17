@@ -20,16 +20,14 @@ target:
 # s3_bucket: accelerator-sources-prod
 # AWS credentials profile (the entry name in ~/.aws/credentials that contains aws_access_key_id, aws_secret_acess_key, aws_session_token)
 # aws_profile: myprofile
-# projects:
+projects:
     # The project ID provided as an example here comes from a whitelist.
     # The ``projects.csv'' file is the full whitelist so far. This file is derived from
     # https://docs.google.com/spreadsheets/d/1fEO7WiDEwHaw_TqMPWXT12CJe3_07fmZGRi-LCThZ50/edit#gid=0
     # The first batch contains 25 projects.
     # If 'loc' is not specified, the project is from AWS S3.
     # If 'loc' is specified, the project is from local directory (relative path to $workdir or absolute path)
-  # - project:
-  #     id: 077ec810-7448-11ed-9e7b-cb6683d8c238
-  # - project:
-  #     id: MoonGame
-  #     loc: projects/MoonGame
+   - project:
+       id: CIX
+       loc: /Users/cong.zhang/PycharmProjects/solidity-supplychain-checker/testcases/Centurion/
 
