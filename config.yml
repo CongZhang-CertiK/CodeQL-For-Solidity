@@ -30,4 +30,7 @@ projects:
    - project:
        id: CIX
        loc: /Users/cong.zhang/PycharmProjects/solidity-supplychain-checker/testcases/Centurion/
+#   - project:
+#       id: Saasy
+#       loc: /Users/cong.zhang/certik/projects/Saasy
 

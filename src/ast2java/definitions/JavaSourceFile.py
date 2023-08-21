@@ -6,6 +6,7 @@ from .EnumDefinition import EnumDefinition
 from .StructDefinition import StructDefinition
 from .EventDefinition import EventDefinition
 from .ModifierDefinition import ModifierDefinition
+from .CustomErrorDefinition import CustomErrorDefinition
 from .StateVariableDeclaration import StateVariableDeclaration
 from src.config import CONFIG
 from src.logger import logger
@@ -20,6 +21,7 @@ class JavaSourceFile:
         self.package_info = "package certik.congzhang.tool.codeql.solidity;"
         # methods implemented by this contract
         self.implements = {}
+        self.kind = ""
         self.class_type = ""
         self.class_name = ""
         self.eol = "\n\n"
@@ -36,7 +38,7 @@ class JavaSourceFile:
     def keywork_mapping(self, word):
         mapping = {
             'contract': 'class',
-            'interface': 'interface',
+            'interface': 'class',
             'library': 'class',
             'abstract': 'abstract class'
         }
@@ -45,13 +47,16 @@ class JavaSourceFile:
     def update(self, ast):
         self.file_name = ast.get('name') + ".java"
         self.class_name = ast.get('name')
-        self.class_type = self.keywork_mapping(ast.get('kind'))
+        self.kind = ast.get('kind')
+        self.class_type = self.keywork_mapping(self.kind)
         self.class_definition_start = ""
         base_contracts = []
         if self.ast.get('baseContracts') is not None:
             for base_contract in self.ast.get('baseContracts'):
                 base_contracts.append(base_contract.get('baseName').get('namePath'))
         self.class_definition_start += f"@inherit({{{list_to_str(base_contracts)}}})\n"
+        if self.kind == 'interface':
+            self.class_definition_start += f"@_interface\n"
         self.class_definition_start += f"public {self.class_type} {self.class_name} {{"
         for name in base_contracts:
             contract: JavaSourceFile = self.compilation_global[name]
@@ -115,6 +120,10 @@ class JavaSourceFile:
             event_def = EventDefinition(subnode, self)
             self.element_override(event_def)
             self.class_elements.append(event_def)
+        elif node_type == "CustomErrorDefinition":
+            error_def = CustomErrorDefinition(subnode, self)
+            self.element_override(error_def)
+            self.class_elements.append(error_def)
         elif node_type == "UsingForDeclaration":
             pass
         elif node_type == "ModifierDefinition":
@@ -125,6 +134,7 @@ class JavaSourceFile:
             logger.info(node_type)
 
     def update_imports(self):
+        self.import_block.append("import certik.congzhang.tool.codeql.solidity.builtins.Result;\n")
         self.import_block.append("import certik.congzhang.tool.codeql.solidity.builtins.modifiers.*;\n")
         self.import_block.append("import certik.congzhang.tool.codeql.solidity.builtins.bytes.*;\n")
         self.import_block.append("import certik.congzhang.tool.codeql.solidity.builtins.uint.*;\n")
@@ -158,6 +168,9 @@ class JavaSourceFile:
         for class_element in self.class_elements:  # type: ClassElement
             file.write(self.eol)
             file.write(class_element.get_content())
+        if self.kind == "interface":
+            file.write(self.eol)
+            file.write(f"\t@_interface\n\t{self.class_name}(address addr){{}}")
         file.write(self.class_definition_end)
         file.close()
         logger.info(f"[GENERATED] {self.file_name}")

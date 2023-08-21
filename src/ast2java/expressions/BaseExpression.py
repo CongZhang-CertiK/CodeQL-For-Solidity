@@ -29,9 +29,9 @@ class BaseExpression:
         from src.ast2java.definitions.FunctionDefinition import FunctionDefinition
         from src.ast2java.definitions.JavaSourceFile import JavaSourceFile
         while type(search) is not FunctionDefinition:
-            search = search.parent
             if type(search) is JavaSourceFile:
                 return None
+            search = search.parent
         return search
 
     def get_func_param(self):

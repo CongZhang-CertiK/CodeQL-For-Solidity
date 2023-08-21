@@ -2,6 +2,7 @@ from src.ast2java.expressions.Expression import Expression
 from src.ast2java.keywordMapping import keyword_map
 from src.logger import logger
 from .BaseExpression import BaseExpression
+from src.ast2java.compilationGlobal import compilation_global
 
 
 class FunctionCall(BaseExpression):
@@ -36,6 +37,8 @@ class FunctionCall(BaseExpression):
             if argument != self.arguments[-1]:
                 result += ", "
         result += ")"
+        if self.expression in compilation_global['__reorged_list']:
+            result = "new " + result
         return result
 
     def get_exp_type(self):

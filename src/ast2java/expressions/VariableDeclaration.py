@@ -33,6 +33,8 @@ class VariableDeclaration(BaseExpression):
             result = ""
             if self.visibility is not None:
                 if self.visibility != "default":
+                    if self.visibility == "internal":
+                        self.visibility = "@internal private"
                     result += self.visibility + " "
             if self.is_const is not None and self.is_const:
                 result += "final "

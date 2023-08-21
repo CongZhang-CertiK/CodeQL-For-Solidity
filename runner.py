@@ -40,37 +40,35 @@ shutil.copytree('/workdir/input', input_transformed)
 shutil.copytree('/workdir/input', input_diff)
 
 # run auto-build
-auto_build_work_dir = os.path.join(output_dir, 'auto_build_artifacts_original')
-os.mkdir(auto_build_work_dir)
-result = subprocess.run(["/workdir/auto-build/auto-build.sh", input], env=my_env,
-                        cwd=auto_build_work_dir, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-return_code = result.returncode
+# auto_build_work_dir = os.path.join(output_dir, 'auto_build_artifacts_original')
+# os.mkdir(auto_build_work_dir)
+# result = subprocess.run(["/workdir/auto-build/auto-build.sh", input], env=my_env,
+#                         cwd=auto_build_work_dir, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+# return_code = result.returncode
+# if return_code == 0:
+#     print(f'Successfully built original {project_id}!')
+# else:
+#     print("Auto build failed on original project")
 
 # note which files can't be built
 failed_set = set()
-target_status_path = os.path.join(auto_build_work_dir, 'target-status.txt')
-if os.path.exists(target_status_path):
-    with open(target_status_path, 'r') as target_status:
-        lines = target_status.readlines()
-        for line in lines:
-            status = line.strip()[-2:]
-            if status != 'OK':
-                failed_set.add(os.path.join(
-                    input, line.split(':')[0]))
+# target_status_path = os.path.join(auto_build_work_dir, 'target-status.txt')
+# if os.path.exists(target_status_path):
+#     with open(target_status_path, 'r') as target_status:
+#         lines = target_status.readlines()
+#         for line in lines:
+#             status = line.strip()[-2:]
+#             if status != 'OK':
+#                 failed_set.add(os.path.join(
+#                     input, line.split(':')[0]))
 
 # copy node_modules
-if os.path.exists(os.path.join(input, 'node_modules')):
-    shutil.rmtree(os.path.join(input, 'node_modules'))
-    shutil.copytree('/workdir/npm_modules/lib/node_modules', os.path.join(input, 'node_modules'))
-    cleanup(os.path.join(input, 'node_modules'))
+# if os.path.exists(os.path.join(input, 'node_modules')):
+#     shutil.rmtree(os.path.join(input, 'node_modules'))
+#     shutil.copytree('/workdir/npm_modules/lib/node_modules', os.path.join(input, 'node_modules'))
+#     cleanup(os.path.join(input, 'node_modules'))
 
-# save un-flattened source to a zip
 shutil.copytree(input, os.path.join(output_dir, 'original'))
-
-if return_code == 0:
-    print(f'Successfully built original {project_id}!')
-else:
-    print("Auto build failed on original project")
 
 transform.walk_files(input, input_diff, input_transformed, project_id, output_dir, failed_set)
 

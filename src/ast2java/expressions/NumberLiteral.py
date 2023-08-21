@@ -12,11 +12,15 @@ class NumberLiteral(BaseExpression):
     def convert_to_decimal(self):
         if self.num.startswith('0x'):
             return int(self.num, 16)
+        elif self.num.startswith('1e'):
+            return int(float(self.num))
         else:
             return int(self.num, 10)
 
     def get_content(self):
-        if self.value > 2147483647:
+        if self.num.startswith('0x') and len(self.num) == 66:
+            result = f"_uint(\"{self.num}\")"
+        elif self.value > 2147483647 and not self.num.startswith('1e'):
             result = f"_uint({self.num}L)"
         else:
             result = f"_uint({self.num})"

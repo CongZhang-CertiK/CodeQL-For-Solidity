@@ -15,4 +15,8 @@ class BinaryOperation(BaseExpression):
         if evm_op != self.operator:
             return f"{evm_op}({self.left.get_content()}, {self.right.get_content()})"
         else:
+            from .IndexAccess import IndexAccess
+            if type(self.left) == IndexAccess and self.operator == "=":
+                return f"{self.left.base.get_content()}" \
+                       f".put({self.left.index.get_content()}, {self.right.get_content()})"
             return f"{self.left.get_content()} {self.operator} {self.right.get_content()}"

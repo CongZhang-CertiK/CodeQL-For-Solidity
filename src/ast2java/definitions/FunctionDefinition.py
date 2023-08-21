@@ -20,6 +20,7 @@ class FunctionDefinition(ClassElement):
         self.name = self.ast.get('name')
         self.parameters: list[Parameter] = []
         self.return_parameters: list[Parameter] = []
+        self.return_statement = None
         self.annotations: list[str] = []
         self.body_ast = self.ast.get('body')
         self.body = ""
@@ -55,11 +56,14 @@ class FunctionDefinition(ClassElement):
         return_parameter_list = self.ast.get('returnParameters')
         if type(return_parameter_list) != list and return_parameter_list.get('type') == 'ParameterList':
             for parameter in return_parameter_list.get('parameters'):
-                self.return_parameters.append(Parameter(parameter))
+                param = Parameter(parameter)
+                if param.name.startswith('_$_anon_'):
+                    param.name = None
+                self.return_parameters.append(param)
         elif type(return_parameter_list) == list and len(return_parameter_list) == 0:
             pass
         else:
-            logger.debug("unresolved return parameter list: " + type(return_parameter_list) + return_parameter_list)
+            logger.debug("unresolved return parameter list: " + str(type(return_parameter_list)) + return_parameter_list)
 
     def update_annotations(self):
         visibility = self.ast.get('visibility')
@@ -78,8 +82,11 @@ class FunctionDefinition(ClassElement):
             self.annotations.append(f"@{keyword_map(mutability)}")
         if self.ast.get('isVirtual'):
             self.annotations.append(f"@virtual")
-        for modifier in self.sol_modifiers:
-            self.annotations.append(f"@{modifier.get('name')}")
+        if self.sol_modifiers is not None:
+            for modifier in self.sol_modifiers:
+                self.annotations.append(f"@{modifier.get('name')}")
+        if self.parent.kind == "interface":
+            self.annotations.append("@_interface")
 
     def update_java_modifiers(self):
         if self.name == "constructor":
@@ -92,19 +99,29 @@ class FunctionDefinition(ClassElement):
             elif len(self.return_parameters) == 1:
                 self.return_type = self.return_parameters[0].type_name
             else:
-                self.return_type = 'TODO'
+                self.return_type = 'Result'
             self.java_modifiers = f"{self.visibility} {self.return_type} "
 
     def update_body(self):
-        if len(self.body_ast) == 0:
-            self.body = ";"
-            return
-        if self.body_ast.get('type') == 'Block':
+        if self.parent.kind == "interface":
+            if self.return_type == 'void':
+                self.body = "{}"
+            else:
+                self.body = "{ return null; }"
+        elif self.body_ast.get('type') == 'Block':
             return_param_decl = ""
+            return_param_str = ""
             for param in self.return_parameters:
                 if param.name is None:
                     continue
                 return_param_decl += f"{self.eol}\t{param.type_name} {param.name} = null;"
+                return_param_str += param.name
+                if param is not self.return_parameters[-1]:
+                    return_param_str += ", "
+                if len(self.return_parameters) == 1:
+                    self.return_statement = f"{self.eol}\treturn {param.name};"
+                else:
+                    self.return_statement = f"{self.eol}\treturn new Result({return_param_str});"
             self.body += Block(self.body_ast, self, self.eol, return_param_decl).get_content()
 
     def get_content(self):

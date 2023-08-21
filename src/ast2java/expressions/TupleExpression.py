@@ -16,4 +16,7 @@ class TupleExpression(BaseExpression):
             if component is not self.components[-1]:
                 result += ", "
         result += ")"
+        from src.ast2java.statements.ReturnStatement import ReturnStatement
+        if type(self.parent) == ReturnStatement and len(self.components) > 1:
+            result = "new Result" + result
         return result

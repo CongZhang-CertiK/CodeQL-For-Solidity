@@ -45,6 +45,12 @@ def Expression(ast, parent):
     elif node_type == 'ElementaryTypeName':
         from .ElementaryTypeName import ElementaryTypeName
         expression = ElementaryTypeName(ast, parent)
+    elif node_type == 'UserDefinedTypeName':
+        from .UserDefinedTypeName import UserDefinedTypeName
+        expression = UserDefinedTypeName(ast, parent)
+    elif node_type == 'ArrayTypeName':
+        from .ArrayTypeName import ArrayTypeName
+        expression = ArrayTypeName(ast, parent)
     else:
         logger.debug('unresolved Expression')
         logger.debug(node_type)

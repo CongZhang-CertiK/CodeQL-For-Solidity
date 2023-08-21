@@ -7,6 +7,7 @@ class Block:
         self.parent = parent
         self.eol = eol
         self.rpd = rpd
+        self.need_append_return = True
 
     def get_content(self):
         if self.ast.get('type') == "Block":
@@ -14,6 +15,8 @@ class Block:
             result += self.rpd
             for statement in self.ast.get('statements'):
                 result = self.update_by_statement(statement, result)
+            if self.rpd != "" and self.parent.return_statement is not None and self.need_append_return:
+                result += self.parent.return_statement
             result += self.eol + "}"
         else:
             result = self.update_by_statement(self.ast, "")
@@ -42,6 +45,10 @@ class Block:
         elif statement.get('type') == "ReturnStatement":
             from src.ast2java.statements.ReturnStatement import ReturnStatement
             stmt = ReturnStatement(statement, self.parent, self.eol + "\t")
+            self.need_append_return = False
+        elif statement.get('type') == "RevertStatement":
+            from src.ast2java.statements.RevertStatement import RevertStatement
+            stmt = RevertStatement(statement, self.parent, self.eol + "\t")
         elif statement.get('type') == "BreakStatement":
             result += "\tbreak;"
         elif statement.get('type') == "InLineAssemblyStatement":

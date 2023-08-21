@@ -21,14 +21,14 @@ def scatter_to_compilation_units(source_unit):
     compilation_units = {}
     pragma_directive = None
     for ast in source_unit.get('children'):
-        if ast.get('type') == "PragmaDirective" and pragma_directive is None:
+        if ast.get('type') == "PragmaDirective":
             pragma_directive = ast
         elif (
             ast.get('type') == "ContractDefinition"
             or ast.get('type') == "InterfaceDefinition"
-        ) and pragma_directive is not None:
+        ):  # and pragma_directive is not None:
             compilation_units[ast.get('name')] = (pragma_directive, ast)
-            pragma_directive = None
+            # pragma_directive = None
         else:
             logger.debug("unknown source unit children type.")
     return reorg_compilation_tree(compilation_units)
@@ -53,5 +53,6 @@ def reorg_compilation_tree(compilation_units_dict):
                     continue
             reorged_list.append(name)
             reorged_units.append(compilation_unit)
+    compilation_global['__reorged_list'] = reorged_list
     return reorged_units
 

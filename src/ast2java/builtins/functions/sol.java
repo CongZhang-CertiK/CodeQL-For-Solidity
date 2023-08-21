@@ -11,6 +11,10 @@ public class sol {
 
     public static void _revert(Object... o){}
 
+    public static bytes32 _keccak256(Object... o){}
+
+    public static address _ecrecover(Object... o){}
+
     public static void _unchecked_start(){}
 
     public static void _assembly_start(){}
@@ -88,6 +92,8 @@ public class sol {
     public static string _string(Object o){ return new string(o); }
 
     public static address _address(Object o){ return new address(o); }
+
+    public static Boolean _Boolean(Object o){ return Boolean.FALSE; }
 
     public static type _type(Class<?> clazz){ return new type(clazz); }
 

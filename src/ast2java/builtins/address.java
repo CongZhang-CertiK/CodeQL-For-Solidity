@@ -3,6 +3,11 @@ package certik.congzhang.tool.codeql.solidity.builtins;
 import java.math.BigInteger;
 
 public class address {
+
+    public class Code{
+        public int length;
+    }
+    public Code code = new Code();
     private BigInteger value;
 
     public BigInteger balance;
