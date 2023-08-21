@@ -31,6 +31,7 @@ class JavaSourceFile:
         self.class_elements: list[ClassElement] = []
         # functions in this contract
         self.functions = {}
+        self.structs = {}
         # fields in this contract
         self.declarations = {}
         self.ast = None
@@ -116,6 +117,7 @@ class JavaSourceFile:
             struct_def = StructDefinition(subnode, self)
             self.element_override(struct_def)
             self.class_elements.append(struct_def)
+            self.structs[struct_def.name] = struct_def
         elif node_type == "EventDefinition":
             event_def = EventDefinition(subnode, self)
             self.element_override(event_def)
@@ -140,6 +142,7 @@ class JavaSourceFile:
         self.import_block.append("import certik.congzhang.tool.codeql.solidity.builtins.uint.*;\n")
         self.import_block.append("import certik.congzhang.tool.codeql.solidity.builtins.storage.*;\n")
         self.import_block.append("import certik.congzhang.tool.codeql.solidity.builtins.address;\n")
+        self.import_block.append("import certik.congzhang.tool.codeql.solidity.builtins.array;\n")
         self.import_block.append("import certik.congzhang.tool.codeql.solidity.builtins.msg;\n")
         self.import_block.append("import certik.congzhang.tool.codeql.solidity.builtins.string;\n")
         self.import_block.append("import certik.congzhang.tool.codeql.solidity.builtins.inherit.*;\n")

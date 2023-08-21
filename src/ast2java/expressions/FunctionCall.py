@@ -17,8 +17,6 @@ class FunctionCall(BaseExpression):
             self.arguments.append(Expression(argument, self))
         self.contract = self.find_contract()
         self.function_definition = self.find_function()
-        # if self.function_definition is not None:
-        #     logger.info(self.function_definition.name)
 
     def find_function(self):
         function_defs = self.contract.functions
@@ -38,6 +36,8 @@ class FunctionCall(BaseExpression):
                 result += ", "
         result += ")"
         if self.expression in compilation_global['__reorged_list']:
+            result = "new " + result
+        if self.expression in self.contract.structs.keys():
             result = "new " + result
         return result
 

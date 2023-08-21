@@ -23,6 +23,19 @@ class StructDefinition(ClassElement):
             else:
                 logger.debug("unresolved StructDefinition member: " + member)
 
+    def get_constructor(self):
+        param_str = ""
+        body_str = ""
+        for index in range(0, len(self.sub_variable_declarations)):
+            member = self.sub_variable_declarations[index]
+            param_str += f"{member.variable_type.name} p{index}"
+            if member is not self.sub_variable_declarations[-1]:
+                param_str += ", "
+            body_str += f"{self.eol}\t\t{member.variable_name} = p{index};"
+        return f"{self.eol}\t{self.name}({param_str}){{" \
+               f"{body_str}" \
+               f"{self.eol}\t}}"
+
     def get_content(self):
         result = super().get_content()
         result += f"{self.eol}@struct"
@@ -30,5 +43,6 @@ class StructDefinition(ClassElement):
         for member in self.sub_variable_declarations:
             member.visibility = "public"
             result += f"{self.eol}\t{member.get_content()}"
+        result += self.get_constructor()
         result += self.eol + "}"
         return result

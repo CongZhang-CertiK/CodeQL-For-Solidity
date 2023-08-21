@@ -535,10 +535,14 @@ class AstVisitor(SolidityVisitor):
                             isPrefix=False)
         elif children_length == 3:
             if ctx.getChild(0).getText() == '(' and ctx.getChild(2).getText() == ')':
-                return Node(ctx=ctx,
-                            type='TupleExpression',
-                            components=[self.visit(ctx.getChild(1))],
-                            isArray=False)
+                components = [self.visit(ctx.getChild(1))]
+                if len(components) > 1:
+                    return Node(ctx=ctx,
+                                type='TupleExpression',
+                                components=components,
+                                isArray=False)
+                else:
+                    return components[0]
 
             op = ctx.getChild(1).getText()
 

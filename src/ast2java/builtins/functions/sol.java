@@ -63,7 +63,7 @@ public class sol {
 
     public static Boolean _lessEqual(Object o1, Object o2){ return o1 == o2; }
 
-    public static void _assign(Object o1, Object o2){}
+    public static void _assign(Object... o){}
 
     public static void _subAssign(Object o1, Object o2){}
 
