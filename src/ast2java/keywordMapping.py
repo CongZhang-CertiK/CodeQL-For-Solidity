@@ -139,7 +139,7 @@ def resolve_type(ast):
     elif node_type == "Mapping":
         key = resolve_type(ast.get('keyType'))
         value = resolve_type(ast.get('valueType'))
-        return f"Map<{key}, {value}>"
+        return f"mapping<{key}, {value}>"
     elif node_type == "ArrayTypeName":
         base_type = resolve_type(ast.get('baseTypeName'))
         return f"array<{base_type}>"

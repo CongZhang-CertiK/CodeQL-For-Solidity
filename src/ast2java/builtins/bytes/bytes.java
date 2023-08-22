@@ -1,11 +1,14 @@
 package certik.congzhang.tool.codeql.solidity.builtins.bytes;
 
 import certik.congzhang.tool.codeql.solidity.builtins.uint.uint;
+import certik.congzhang.tool.codeql.solidity.builtins.uint.uint256;
 
 import java.util.ArrayList;
 
 public class bytes implements Ibytes {
     private ArrayList<Byte> bytes;
+
+    public uint256 length;
 
     public bytes() {
         this.bytes = new ArrayList<>();

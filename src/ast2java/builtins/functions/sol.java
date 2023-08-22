@@ -11,9 +11,9 @@ public class sol {
 
     public static void _revert(Object... o){}
 
-    public static bytes32 _keccak256(Object... o){}
+    public static bytes32 _keccak256(Object... o){ return null; }
 
-    public static address _ecrecover(Object... o){}
+    public static address _ecrecover(Object... o){ return null; }
 
     public static void _unchecked_start(){}
 

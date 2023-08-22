@@ -11,6 +11,6 @@ class ArrayTypeName(BaseExpression):
 
     def get_content(self):
         if self.length is not None:
-            return f"{self.baseType.get_content()}[{self.length}]"
+            return f"array<{self.baseType.get_content()}>({self.length})"
         else:
-            return f"{self.baseType.get_content()}[]"
+            return f"array<{self.baseType.get_content()}>"

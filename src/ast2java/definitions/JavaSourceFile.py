@@ -143,6 +143,7 @@ class JavaSourceFile:
         self.import_block.append("import certik.congzhang.tool.codeql.solidity.builtins.storage.*;\n")
         self.import_block.append("import certik.congzhang.tool.codeql.solidity.builtins.address;\n")
         self.import_block.append("import certik.congzhang.tool.codeql.solidity.builtins.array;\n")
+        self.import_block.append("import certik.congzhang.tool.codeql.solidity.builtins.mapping;\n")
         self.import_block.append("import certik.congzhang.tool.codeql.solidity.builtins.msg;\n")
         self.import_block.append("import certik.congzhang.tool.codeql.solidity.builtins.string;\n")
         self.import_block.append("import certik.congzhang.tool.codeql.solidity.builtins.inherit.*;\n")
@@ -171,9 +172,8 @@ class JavaSourceFile:
         for class_element in self.class_elements:  # type: ClassElement
             file.write(self.eol)
             file.write(class_element.get_content())
-        if self.kind == "interface":
-            file.write(self.eol)
-            file.write(f"\t@_interface\n\t{self.class_name}(address addr){{}}")
+        file.write(self.eol)
+        file.write(f"\t{self.class_name}(address addr){{}}")
         file.write(self.class_definition_end)
         file.close()
         logger.info(f"[GENERATED] {self.file_name}")

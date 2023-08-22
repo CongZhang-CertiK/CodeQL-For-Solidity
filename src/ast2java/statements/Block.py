@@ -24,12 +24,17 @@ class Block:
 
     def update_by_statement(self, statement, result):
         stmt = None
-        if statement.get('type') == "IfStatement":
+        if statement.get('type') == "Block":
+            return result + self.eol+"\t" + Block(statement, self, self.eol+"\t").get_content()
+        elif statement.get('type') == "IfStatement":
             from src.ast2java.statements.IfStatement import IfStatement
             stmt = IfStatement(statement, self.parent, self.eol + "\t")
         elif statement.get('type') == "WhileStatement":
             from src.ast2java.statements.WhileStatement import WhileStatement
             stmt = WhileStatement(statement, self.parent, self.eol + "\t")
+        elif statement.get('type') == "ForStatement":
+            from src.ast2java.statements.ForStatement import ForStatement
+            stmt = ForStatement(statement, self.parent, self.eol + "\t")
         elif statement.get('type') == "UncheckedStatement":
             from src.ast2java.statements.UncheckedStatement import UncheckedStatement
             stmt = UncheckedStatement(statement, self.parent, self.eol + "\t")

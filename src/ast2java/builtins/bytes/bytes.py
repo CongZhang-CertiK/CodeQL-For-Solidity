@@ -4,12 +4,14 @@ template = '''
 package certik.congzhang.tool.codeql.solidity.builtins.bytes;
 
 import certik.congzhang.tool.codeql.solidity.builtins.uint.uint;
+import certik.congzhang.tool.codeql.solidity.builtins.uint.uint256;
 
 import java.math.BigInteger;
 
 public class bytes{n} implements Ibytes {{
     private static final int SIZE = {n};
     private byte[] bytes = new byte[SIZE];
+    public uint256 length;
 
     public bytes{n}() {{
 
