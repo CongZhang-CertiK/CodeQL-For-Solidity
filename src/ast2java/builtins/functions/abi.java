@@ -1,6 +1,6 @@
-package certik.congzhang.tool.codeql.solidity.builtins.functions;
+package builtins.functions;
 
-import certik.congzhang.tool.codeql.solidity.builtins.bytes.bytes;
+import builtins.bytes.bytes;
 
 public class abi {
 

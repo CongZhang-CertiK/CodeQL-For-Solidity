@@ -1,8 +1,8 @@
-package certik.congzhang.tool.codeql.solidity.builtins;
+package builtins;
 
-import certik.congzhang.tool.codeql.solidity.builtins.bytes.*;
-import certik.congzhang.tool.codeql.solidity.builtins.uint.*;
-import certik.congzhang.tool.codeql.solidity.builtins.string;
+import builtins.bytes.*;
+import builtins.uint.*;
+import builtins.string;
 
 public class type {
     public bytes4 interfaceId = new bytes4();

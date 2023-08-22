@@ -1,10 +1,10 @@
-package certik.congzhang.tool.codeql.solidity.builtins.functions;
+package builtins.functions;
 
-import certik.congzhang.tool.codeql.solidity.builtins.type;
-import certik.congzhang.tool.codeql.solidity.builtins.uint.*;
-import certik.congzhang.tool.codeql.solidity.builtins.bytes.*;
-import certik.congzhang.tool.codeql.solidity.builtins.string;
-import certik.congzhang.tool.codeql.solidity.builtins.address;
+import builtins.type;
+import builtins.uint.*;
+import builtins.bytes.*;
+import builtins.string;
+import builtins.address;
 
 public class sol {
     public static void _require(Object... o){}

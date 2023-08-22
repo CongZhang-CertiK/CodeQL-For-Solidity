@@ -1,4 +1,4 @@
-package certik.congzhang.tool.codeql.solidity.builtins.storage;
+package builtins.storage;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

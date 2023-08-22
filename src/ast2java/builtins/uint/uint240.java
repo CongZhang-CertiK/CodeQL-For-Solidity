@@ -1,5 +1,5 @@
 
-package certik.congzhang.tool.codeql.solidity.builtins.uint;
+package builtins.uint;
 
 import java.math.BigInteger;
 

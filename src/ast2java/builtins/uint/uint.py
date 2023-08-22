@@ -2,7 +2,7 @@ import os
 
 # Java代码模板
 template = """
-package certik.congzhang.tool.codeql.solidity.builtins.uint;
+package builtins.uint;
 
 import java.math.BigInteger;
 

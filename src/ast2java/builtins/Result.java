@@ -1,4 +1,4 @@
-package certik.congzhang.tool.codeql.solidity.builtins;
+package builtins;
 
 import java.util.ArrayList;
 

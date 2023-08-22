@@ -1,7 +1,7 @@
-package certik.congzhang.tool.codeql.solidity.builtins.bytes;
+package builtins.bytes;
 
-import certik.congzhang.tool.codeql.solidity.builtins.uint.uint;
-import certik.congzhang.tool.codeql.solidity.builtins.uint.uint256;
+import builtins.uint.uint;
+import builtins.uint.uint256;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package certik.congzhang.tool.codeql.solidity.builtins.bytes;
+package builtins.bytes;
 
 public interface Ibytes {
     int length();

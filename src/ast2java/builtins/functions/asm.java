@@ -1,7 +1,7 @@
-package certik.congzhang.tool.codeql.solidity.builtins.functions;
+package builtins.functions;
 
-import certik.congzhang.tool.codeql.solidity.builtins.string;
-import certik.congzhang.tool.codeql.solidity.builtins.uint.uint256;
+import builtins.string;
+import builtins.uint.uint256;
 
 public class asm {
 

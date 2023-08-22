@@ -1,6 +1,6 @@
-package certik.congzhang.tool.codeql.solidity.builtins;
+package builtins;
 
-import certik.congzhang.tool.codeql.solidity.builtins.bytes.bytes;
+import builtins.bytes.bytes;
 
 public class msg {
     public static address sender;

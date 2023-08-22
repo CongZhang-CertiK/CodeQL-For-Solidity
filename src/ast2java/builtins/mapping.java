@@ -1,6 +1,6 @@
-package certik.congzhang.tool.codeql.solidity.builtins;
+package builtins;
 
-import certik.congzhang.tool.codeql.solidity.builtins.uint.uint256;
+import builtins.uint.uint256;
 
 import java.util.HashMap;
 

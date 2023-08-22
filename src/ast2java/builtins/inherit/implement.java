@@ -1,4 +1,4 @@
-package certik.congzhang.tool.codeql.solidity.builtins.inherit;
+package builtins.inherit;
 
 import java.lang.annotation.*;
 
