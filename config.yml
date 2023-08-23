@@ -27,10 +27,10 @@ projects:
     # The first batch contains 25 projects.
     # If 'loc' is not specified, the project is from AWS S3.
     # If 'loc' is specified, the project is from local directory (relative path to $workdir or absolute path)
-   - project:
-       id: CIX
-       loc: /Users/cong.zhang/PycharmProjects/solidity-supplychain-checker/testcases/Centurion/
-#   - project:
-#       id: Saasy
-#       loc: /Users/cong.zhang/certik/projects/Saasy
+  - project:
+      id: CIX
+      loc: /Users/cong.zhang/PycharmProjects/solidity-supplychain-checker/testcases/Centurion/
+  - project:
+      id: leetswap
+      loc: /Users/cong.zhang/dev/ocaml/test-projects/leetswap-contracts/
 

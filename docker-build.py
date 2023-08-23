@@ -140,7 +140,7 @@ def setup_environment(workdir):
         command = [
             'git',
             'checkout',
-            'stable'
+            'main'
         ]
         subprocess.check_call(command, cwd=auto_build_path)
         command = [
